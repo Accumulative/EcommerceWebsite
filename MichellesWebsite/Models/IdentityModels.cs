@@ -29,5 +29,9 @@ namespace MichellesWebsite.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<MichellesWebsite.Models.ProductModel> ProductModels { get; set; }
+
+        public System.Data.Entity.DbSet<MichellesWebsite.Models.ProductPrice> ProductPrices { get; set; }
     }
 }
