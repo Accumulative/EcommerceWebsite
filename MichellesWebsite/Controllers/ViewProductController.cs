@@ -10,17 +10,31 @@ using MichellesWebsite.Models;
 
 namespace MichellesWebsite.Controllers
 {
-    public class ProductController : Controller
+    public class ViewProductController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: ProductModels
+        // GET: ViewProduct
         public ActionResult Index()
         {
-            return View(db.ProductModels.ToList());
+            ProductStore ps = new ProductStore();
+            ps.products = new List<ProductModel>();
+            ps.prices = new List<string>();
+            List<ProductModel> pl = db.ProductModels.ToList();
+            List<ProductPrice> prices = db.ProductPrices.Where(x => x.dateTo == null).ToList();
+            foreach( ProductModel product in pl )
+            {
+                ps.products.Add(product);
+                if (prices.Any(x => x.productID == product.ID))
+                {
+                    ps.prices.Add(prices.Single(x => x.productID == product.ID).price.ToString());
+                        } else { ps.prices.Add("None");
+                }
+            }
+            return View(ps);
         }
 
-        // GET: ProductModels/Details/5
+        // GET: ViewProduct/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -35,22 +49,21 @@ namespace MichellesWebsite.Controllers
             return View(productModel);
         }
 
-        // GET: ProductModels/Create
+        // GET: ViewProduct/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: ProductModels/Create
+        // POST: ViewProduct/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "name,description")] ProductModel productModel)
+        public ActionResult Create([Bind(Include = "ID,name,description,ts,picture")] ProductModel productModel)
         {
             if (ModelState.IsValid)
             {
-                productModel.ts = DateTime.Now;
                 db.ProductModels.Add(productModel);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -59,7 +72,7 @@ namespace MichellesWebsite.Controllers
             return View(productModel);
         }
 
-        // GET: ProductModels/Edit/5
+        // GET: ViewProduct/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -74,16 +87,15 @@ namespace MichellesWebsite.Controllers
             return View(productModel);
         }
 
-        // POST: ProductModels/Edit/5
+        // POST: ViewProduct/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "name,description")] ProductModel productModel)
+        public ActionResult Edit([Bind(Include = "ID,name,description,ts,picture")] ProductModel productModel)
         {
             if (ModelState.IsValid)
             {
-                productModel.ts = DateTime.Now;
                 db.Entry(productModel).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -91,66 +103,7 @@ namespace MichellesWebsite.Controllers
             return View(productModel);
         }
 
-        public ActionResult UploadPicture(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ProductModel productModel = db.ProductModels.Find(id);
-            if (productModel == null)
-            {
-                return HttpNotFound();
-            }
-            return View(productModel);
-        }
-        [HttpPost]
-        public ActionResult UploadPicture(HttpPostedFileBase file, int productID)
-        {
-            BlobHandler bh = new BlobHandler("containername");
-            bh.Upload(file);
-            //var blobUris = bh.GetBlobs();
-
-            ProductModel product = db.ProductModels.Single(x => x.ID == productID);
-            product.picture = file.FileName;
-            db.SaveChanges();
-
-            return RedirectToAction("Index");
-        }
-        public ActionResult UpdatePrice(int? id)
-        {
-            
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            List<ProductPrice> productPrices = db.ProductPrices.Where(x => x.productID == id).OrderByDescending(x => x.dateFrom).Take(10).ToList();
-            ViewBag.productId = id;
-            return View(productPrices);
-        }
-        [HttpPost]
-        public ActionResult UpdatePrice(int productID, float price)
-        {
-            List<ProductPrice> productPrices = db.ProductPrices.Where(x => x.productID == productID).ToList();
-           
-            
-            foreach(ProductPrice pp in productPrices)
-            {
-                if (pp.dateTo == null)
-                {
-                    pp.dateTo = DateTime.Now;
-                    //db.Entry(pp).State = EntityState.Modified;
-                    //db.SaveChanges();
-                }
-            }
-            ProductPrice newProductPrice = new ProductPrice() { price = price, dateFrom = DateTime.Now, productID = productID };
-            db.ProductPrices.Add(newProductPrice);
-            db.SaveChanges();
-            return RedirectToAction("UpdatePrice", new { id = productID } );
-        }
-
-        // GET: ProductModels/Delete/5
+        // GET: ViewProduct/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -165,7 +118,7 @@ namespace MichellesWebsite.Controllers
             return View(productModel);
         }
 
-        // POST: ProductModels/Delete/5
+        // POST: ViewProduct/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

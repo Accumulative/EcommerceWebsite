@@ -8,9 +8,9 @@ using System.Web;
 using System.Web.Mvc;
 using MichellesWebsite.Models;
 
-namespace MichellesWebsite.Controllers
+namespace MichellesWebsite.Views
 {
-    public class ProductController : Controller
+    public class ProductModelsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
@@ -46,11 +46,10 @@ namespace MichellesWebsite.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "name,description")] ProductModel productModel)
+        public ActionResult Create([Bind(Include = "ID,name,description,ts,picture")] ProductModel productModel)
         {
             if (ModelState.IsValid)
             {
-                productModel.ts = DateTime.Now;
                 db.ProductModels.Add(productModel);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -79,75 +78,15 @@ namespace MichellesWebsite.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "name,description")] ProductModel productModel)
+        public ActionResult Edit([Bind(Include = "ID,name,description,ts,picture")] ProductModel productModel)
         {
             if (ModelState.IsValid)
             {
-                productModel.ts = DateTime.Now;
                 db.Entry(productModel).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(productModel);
-        }
-
-        public ActionResult UploadPicture(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ProductModel productModel = db.ProductModels.Find(id);
-            if (productModel == null)
-            {
-                return HttpNotFound();
-            }
-            return View(productModel);
-        }
-        [HttpPost]
-        public ActionResult UploadPicture(HttpPostedFileBase file, int productID)
-        {
-            BlobHandler bh = new BlobHandler("containername");
-            bh.Upload(file);
-            //var blobUris = bh.GetBlobs();
-
-            ProductModel product = db.ProductModels.Single(x => x.ID == productID);
-            product.picture = file.FileName;
-            db.SaveChanges();
-
-            return RedirectToAction("Index");
-        }
-        public ActionResult UpdatePrice(int? id)
-        {
-            
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            List<ProductPrice> productPrices = db.ProductPrices.Where(x => x.productID == id).OrderByDescending(x => x.dateFrom).Take(10).ToList();
-            ViewBag.productId = id;
-            return View(productPrices);
-        }
-        [HttpPost]
-        public ActionResult UpdatePrice(int productID, float price)
-        {
-            List<ProductPrice> productPrices = db.ProductPrices.Where(x => x.productID == productID).ToList();
-           
-            
-            foreach(ProductPrice pp in productPrices)
-            {
-                if (pp.dateTo == null)
-                {
-                    pp.dateTo = DateTime.Now;
-                    //db.Entry(pp).State = EntityState.Modified;
-                    //db.SaveChanges();
-                }
-            }
-            ProductPrice newProductPrice = new ProductPrice() { price = price, dateFrom = DateTime.Now, productID = productID };
-            db.ProductPrices.Add(newProductPrice);
-            db.SaveChanges();
-            return RedirectToAction("UpdatePrice", new { id = productID } );
         }
 
         // GET: ProductModels/Delete/5
