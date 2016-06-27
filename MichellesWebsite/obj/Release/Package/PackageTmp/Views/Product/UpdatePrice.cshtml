@@ -1,0 +1,74 @@
+﻿@model IEnumerable<MichellesWebsite.Models.ProductPrice>
+
+@{
+    ViewBag.Title = "Update Price";
+}
+
+<h2>Price</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Update Price</h4>
+        <hr />
+
+        @Html.Hidden("productId", (int)ViewBag.productId);
+
+        <div class="form-group">
+            @Html.Label("Price: ", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.Editor("price", new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessage("Please enter a price!", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="New Price" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.dateFrom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.dateTo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.price)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.dateFrom)
+                </td>
+                <td>
+                    @(item.dateTo == null ? Html.Raw("Ongoing") : Html.DisplayFor(modelItem => item.dateTo))
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.price)
+                </td>
+            </tr>
+        }
+
+    </table>
+
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

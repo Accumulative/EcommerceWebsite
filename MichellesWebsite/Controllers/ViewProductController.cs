@@ -7,9 +7,12 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MichellesWebsite.Models;
+using System.Web.Security;
+using Microsoft.AspNet.Identity;
 
 namespace MichellesWebsite.Controllers
 {
+    [Authorize]
     public class ViewProductController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -34,14 +37,56 @@ namespace MichellesWebsite.Controllers
             return View(ps);
         }
 
-        // GET: ViewProduct/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult PurchaseDetails(ProductModel product, int quantity)
         {
-            if (id == null)
+            ProductPrice price = db.ProductPrices.Where(x => x.productID == product.ID).Where(x => x.dateTo == null).SingleOrDefault();
+            ApplicationCartItem itemToPurchase = new ApplicationCartItem();
+            itemToPurchase.ProductId = product.ID;
+            itemToPurchase.Name = product.name;
+            itemToPurchase.Quantity = quantity;
+            itemToPurchase.Price = 2.05M;
+            
+            ApplicationCart cart = new ApplicationCart
+            {
+                Id = Guid.NewGuid(), // Unique purchase Id
+                Currency = "GBP",
+                PurchaseDescription = "Left Handed Screwdriver",
+                Items = new List<ApplicationCartItem>()
+            };
+            cart.Items.Add(itemToPurchase);
+
+            // Storing this in session, you might want to store in it a database
+            Session["Cart"] = cart;
+
+            return View(cart);
+        }
+        /*[HttpPost]
+        public ActionResult PurchaseDetails(SaleModel sale)
+        {
+            sale.Amount = db.ProductPrices.Single(x => x.ID == sale.PriceId).price * sale.Quantity;
+            sale.ts = DateTime.Now;
+            sale.CustomerId = User.Identity.GetUserId();
+            db.SaleModels.Add(sale);
+            db.SaveChanges();
+            string message = "You bought " + sale.Quantity + " " + db.ProductModels.Single(x => x.ID == sale.ProductId).name + " for a total of £" 
+                + sale.Amount + ". The estimated delivery date is " + (DateTime.Now.AddDays(14));
+            return RedirectToAction("PostPurchaseDetails", new { sale = sale });
+        }*/
+
+        public ActionResult PostPurchaseDetails(string message)
+        {
+            ViewBag.Message = message;
+            return View();
+        }
+
+        // GET: ViewProduct/Details/5
+        public ActionResult Details(int? productId)
+        {
+            if (productId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ProductModel productModel = db.ProductModels.Find(id);
+            ProductModel productModel = db.ProductModels.Find(productId);
             if (productModel == null)
             {
                 return HttpNotFound();
@@ -117,6 +162,7 @@ namespace MichellesWebsite.Controllers
             }
             return View(productModel);
         }
+
 
         // POST: ViewProduct/Delete/5
         [HttpPost, ActionName("Delete")]

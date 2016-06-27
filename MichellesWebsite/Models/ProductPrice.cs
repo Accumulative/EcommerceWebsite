@@ -17,6 +17,6 @@ namespace MichellesWebsite.Models
         [Column(TypeName = "datetime2")]
         public DateTime? dateTo { get; set; }
         [Required]
-        public float price { get; set; }
+        public decimal price { get; set; }
     }
 }

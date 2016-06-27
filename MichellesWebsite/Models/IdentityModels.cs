@@ -33,5 +33,7 @@ namespace MichellesWebsite.Models
         public System.Data.Entity.DbSet<MichellesWebsite.Models.ProductModel> ProductModels { get; set; }
 
         public System.Data.Entity.DbSet<MichellesWebsite.Models.ProductPrice> ProductPrices { get; set; }
+
+        public System.Data.Entity.DbSet<MichellesWebsite.Models.SaleModel> SaleModels { get; set; }
     }
 }

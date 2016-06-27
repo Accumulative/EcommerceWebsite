@@ -130,7 +130,7 @@ namespace MichellesWebsite.Controllers
             return View(productPrices);
         }
         [HttpPost]
-        public ActionResult UpdatePrice(int productID, float price)
+        public ActionResult UpdatePrice(int productID, decimal price)
         {
             List<ProductPrice> productPrices = db.ProductPrices.Where(x => x.productID == productID).ToList();
            
