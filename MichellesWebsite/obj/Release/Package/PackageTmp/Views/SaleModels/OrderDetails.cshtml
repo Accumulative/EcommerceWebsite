@@ -1,0 +1,106 @@
+﻿@model MichellesWebsite.Models.SaleDetailsModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Order Details</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(x => x.saleView.SaleId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(x => x.saleView.SaleId)  
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(x => x.saleView.Amount)
+        </dt>
+        <dd>
+            @Html.DisplayFor(x => x.saleView.Amount)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(x => x.saleView.status)
+        </dt>
+        <dd>
+            @Html.DisplayFor(x => x.saleView.status)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(x => x.saleView.TimeStamp)
+        </dt>
+        <dd>
+            @Html.DisplayFor(x => x.saleView.TimeStamp)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(x => x.address.firstLine)
+        </dt>
+        <dd>
+            @Html.DisplayFor(x => x.address.firstLine)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(x => x.address.secondLine)
+        </dt>
+        <dd>
+            @Html.DisplayFor(x => x.address.secondLine)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(x => x.address.city)
+        </dt>
+        <dd>
+            @Html.DisplayFor(x => x.address.city)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(x => x.address.postcode)
+        </dt>
+        <dd>
+            @Html.DisplayFor(x => x.address.postcode)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(x => x.address.country)
+        </dt>
+        <dd>
+            @Html.DisplayFor(x => x.address.country)
+        </dd>
+        
+    </dl>
+    <br/>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(x => x.products[0].ProductId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(x => x.products[0].Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(x => x.products[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(x => x.products[0].Quantity)
+            </th>
+        </tr>
+        @foreach (var item in Model.products)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(x => item.ProductId)
+                </td>
+                <td>
+                    @Html.DisplayFor(x => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(x => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(x => item.Quantity)
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Orders")
+</p>

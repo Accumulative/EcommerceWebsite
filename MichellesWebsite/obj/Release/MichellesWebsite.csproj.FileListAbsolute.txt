@@ -125,3 +125,13 @@ D:\Programming\c# projects\MichellesWebsite\MichellesWebsite\bin\ko\System.Spati
 D:\Programming\c# projects\MichellesWebsite\MichellesWebsite\bin\ru\System.Spatial.resources.dll
 D:\Programming\c# projects\MichellesWebsite\MichellesWebsite\bin\zh-Hans\System.Spatial.resources.dll
 D:\Programming\c# projects\MichellesWebsite\MichellesWebsite\bin\zh-Hant\System.Spatial.resources.dll
+D:\Programming\c# projects\MichellesWebsite\MichellesWebsite\bin\zh\MichellesWebsite.resources.dll
+D:\Programming\c# projects\MichellesWebsite\MichellesWebsite\bin\PagedList.dll
+D:\Programming\c# projects\MichellesWebsite\MichellesWebsite\bin\PagedList.Mvc.dll
+D:\Programming\c# projects\MichellesWebsite\MichellesWebsite\bin\PagedList.xml
+D:\Programming\c# projects\MichellesWebsite\MichellesWebsite\bin\PagedList.Mvc.xml
+D:\Programming\c# projects\MichellesWebsite\MichellesWebsite\obj\Release\MichellesWebsite.Migrations.Initial.resources
+D:\Programming\c# projects\MichellesWebsite\MichellesWebsite\obj\Release\MichellesWebsite.Resources.SharedStrings.resources
+D:\Programming\c# projects\MichellesWebsite\MichellesWebsite\obj\Release\MichellesWebsite.Resources.SharedStrings.zh.resources
+D:\Programming\c# projects\MichellesWebsite\MichellesWebsite\obj\Release\MichellesWebsite.csproj.GenerateResource.Cache
+D:\Programming\c# projects\MichellesWebsite\MichellesWebsite\obj\Release\zh\MichellesWebsite.resources.dll

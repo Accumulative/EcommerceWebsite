@@ -12,7 +12,7 @@ using Microsoft.AspNet.Identity;
 
 namespace MichellesWebsite.Controllers
 {
-    [Authorize]
+    
     public class ViewProductController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -20,59 +20,63 @@ namespace MichellesWebsite.Controllers
         // GET: ViewProduct
         public ActionResult Index()
         {
-            ProductStore ps = new ProductStore();
-            ps.products = new List<ProductModel>();
-            ps.prices = new List<string>();
+           
             List<ProductModel> pl = db.ProductModels.ToList();
             List<ProductPrice> prices = db.ProductPrices.Where(x => x.dateTo == null).ToList();
-            foreach( ProductModel product in pl )
+            IEnumerable<ProductViewModel> products = pl.Select(x => new ProductViewModel
             {
-                ps.products.Add(product);
-                if (prices.Any(x => x.productID == product.ID))
-                {
-                    ps.prices.Add(prices.Single(x => x.productID == product.ID).price.ToString());
-                        } else { ps.prices.Add("None");
-                }
-            }
-            return View(ps);
+                name = x.name,
+                description = x.description,
+                picture = x.picture,
+                ID = x.ID,
+                price = prices.Single(y => y.productID == x.ID).price,
+                quantity = 0
+            });
+            return View(products);
         }
-
-        public ActionResult PurchaseDetails(ProductModel product, int quantity)
+        [HttpPost]
+        [Authorize]
+        public ActionResult PurchaseDetails(ProductViewModel product)
         {
-            ProductPrice price = db.ProductPrices.Where(x => x.productID == product.ID).Where(x => x.dateTo == null).SingleOrDefault();
+            ProductModel productModel = db.ProductModels.Single(x => x.ID == product.ID);
             ApplicationCartItem itemToPurchase = new ApplicationCartItem();
             itemToPurchase.ProductId = product.ID;
-            itemToPurchase.Name = product.name;
-            itemToPurchase.Quantity = quantity;
-            itemToPurchase.Price = 2.05M;
-            
-            ApplicationCart cart = new ApplicationCart
+            itemToPurchase.Name = productModel.name;
+            itemToPurchase.Quantity = product.quantity;
+            itemToPurchase.Price = product.price;
+
+                ApplicationCart cart = new ApplicationCart
+                {
+                    Id = Guid.NewGuid(), // Unique purchase Id
+                    Currency = "GBP",
+                    PurchaseDescription = product.name,
+                    Items = new List<ApplicationCartItem>()
+                };
+                cart.Items.Add(itemToPurchase);
+
+                // Storing this in session, you might want to store in it a database
+                Session["Cart"] = cart;
+            string userId = User.Identity.GetUserId();
+            ViewBag.Addresses = db.Addresses.Where(x => x.userId == userId).Select(x => new SelectListItem
             {
-                Id = Guid.NewGuid(), // Unique purchase Id
-                Currency = "GBP",
-                PurchaseDescription = "Left Handed Screwdriver",
-                Items = new List<ApplicationCartItem>()
-            };
-            cart.Items.Add(itemToPurchase);
-
-            // Storing this in session, you might want to store in it a database
-            Session["Cart"] = cart;
-
-            return View(cart);
+                Text = x.firstLine + " " + x.secondLine + " " + x.city + " " + x.postcode + "...",
+                Value = x.id.ToString()
+            });
+                return View(cart);
         }
         /*[HttpPost]
         public ActionResult PurchaseDetails(SaleModel sale)
         {
             sale.Amount = db.ProductPrices.Single(x => x.ID == sale.PriceId).price * sale.Quantity;
-            sale.ts = DateTime.Now;
+            sale.ts = DateTime.UtcNow;
             sale.CustomerId = User.Identity.GetUserId();
             db.SaleModels.Add(sale);
             db.SaveChanges();
             string message = "You bought " + sale.Quantity + " " + db.ProductModels.Single(x => x.ID == sale.ProductId).name + " for a total of £" 
-                + sale.Amount + ". The estimated delivery date is " + (DateTime.Now.AddDays(14));
+                + sale.Amount + ". The estimated delivery date is " + (DateTime.UtcNow.AddDays(14));
             return RedirectToAction("PostPurchaseDetails", new { sale = sale });
         }*/
-
+        [Authorize]
         public ActionResult PostPurchaseDetails(string message)
         {
             ViewBag.Message = message;
@@ -80,21 +84,24 @@ namespace MichellesWebsite.Controllers
         }
 
         // GET: ViewProduct/Details/5
-        public ActionResult Details(int? productId)
+
+        public ActionResult Details(int productId)
         {
-            if (productId == null)
+            ProductModel product = db.ProductModels.Single(x => x.ID == productId);
+            ProductViewModel productView = new ProductViewModel
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ProductModel productModel = db.ProductModels.Find(productId);
-            if (productModel == null)
-            {
-                return HttpNotFound();
-            }
-            return View(productModel);
+                name = product.name,
+                description = product.description,
+                picture = product.picture,
+                ID = product.ID,
+                price = db.ProductPrices.Where(x => x.dateTo == null).Single(y => y.productID == product.ID).price,
+                quantity = 0
+            };
+            return View(productView);
         }
 
         // GET: ViewProduct/Create
+        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -105,6 +112,7 @@ namespace MichellesWebsite.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Create([Bind(Include = "ID,name,description,ts,picture")] ProductModel productModel)
         {
             if (ModelState.IsValid)
@@ -118,6 +126,7 @@ namespace MichellesWebsite.Controllers
         }
 
         // GET: ViewProduct/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -137,6 +146,7 @@ namespace MichellesWebsite.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Edit([Bind(Include = "ID,name,description,ts,picture")] ProductModel productModel)
         {
             if (ModelState.IsValid)
@@ -149,6 +159,7 @@ namespace MichellesWebsite.Controllers
         }
 
         // GET: ViewProduct/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -166,6 +177,7 @@ namespace MichellesWebsite.Controllers
 
         // POST: ViewProduct/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {

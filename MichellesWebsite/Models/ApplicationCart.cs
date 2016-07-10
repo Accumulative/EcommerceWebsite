@@ -13,8 +13,9 @@ namespace MichellesWebsite.Models
         public string Currency { get; set; }
         public string PurchaseDescription { get; set; }
         public List<ApplicationCartItem> Items { get; set; }
-        
+        public int Address { get; set; }
         private decimal totalPrice { get; set; }
+        public string SaleId { get; set; }
         public decimal TotalPrice 
         {
             get

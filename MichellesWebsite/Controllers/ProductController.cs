@@ -10,14 +10,53 @@ using MichellesWebsite.Models;
 
 namespace MichellesWebsite.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class ProductController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: ProductModels
+
         public ActionResult Index()
         {
             return View(db.ProductModels.ToList());
+        }
+
+        public ActionResult ListStockTransactions(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ViewBag.Id = id;
+            return View(db.StockTransactions.Where(x => x.ProductId == id).OrderByDescending(m => m.ts).ToList());
+        }
+        public ActionResult AddStock(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            StockTransaction stk = new StockTransaction();
+            stk.ProductId = id??1;
+            return View(stk);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddStock(StockTransaction stockTransaction)
+        {
+            ProductModel pr = db.ProductModels.Single(x => x.ID == stockTransaction.ProductId);
+            if (ModelState.IsValid && pr.stock + stockTransaction.Amount > 0)
+            {
+                stockTransaction.ts = DateTime.UtcNow;
+                pr.stock = pr.stock + stockTransaction.Amount;
+                db.StockTransactions.Add(stockTransaction);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(stockTransaction);
         }
 
         // GET: ProductModels/Details/5
@@ -46,11 +85,12 @@ namespace MichellesWebsite.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "name,description")] ProductModel productModel)
+        public ActionResult Create([Bind(Include = "name,description,zhName,zhDescription")] ProductModel productModel)
         {
             if (ModelState.IsValid)
             {
-                productModel.ts = DateTime.Now;
+                productModel.ts = DateTime.UtcNow;
+                productModel.stock = 0;
                 db.ProductModels.Add(productModel);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -83,7 +123,7 @@ namespace MichellesWebsite.Controllers
         {
             if (ModelState.IsValid)
             {
-                productModel.ts = DateTime.Now;
+                productModel.ts = DateTime.UtcNow;
                 db.Entry(productModel).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -139,12 +179,12 @@ namespace MichellesWebsite.Controllers
             {
                 if (pp.dateTo == null)
                 {
-                    pp.dateTo = DateTime.Now;
+                    pp.dateTo = DateTime.UtcNow;
                     //db.Entry(pp).State = EntityState.Modified;
                     //db.SaveChanges();
                 }
             }
-            ProductPrice newProductPrice = new ProductPrice() { price = price, dateFrom = DateTime.Now, productID = productID };
+            ProductPrice newProductPrice = new ProductPrice() { price = price, dateFrom = DateTime.UtcNow, productID = productID };
             db.ProductPrices.Add(newProductPrice);
             db.SaveChanges();
             return RedirectToAction("UpdatePrice", new { id = productID } );

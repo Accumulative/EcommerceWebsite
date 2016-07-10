@@ -6,10 +6,11 @@ using System.Collections.Generic;
 
 namespace MichellesWebsite
 {
+   
     public interface ITransactionService
     {
         SetExpressCheckoutResponse SendPayPalSetExpressCheckoutRequest(ApplicationCart cart, string serverURL, string userEmail = null);
-        GetExpressCheckoutDetailsResponse SendPayPalGetExpressCheckoutDetailsRequest(string token);
+        GetExpressCheckoutDetailsResponse SendPayPalGetExpressCheckoutDetailsRequest(string token, ApplicationCart cart);
         DoExpressCheckoutPaymentResponse SendPayPalDoExpressCheckoutPaymentRequest(ApplicationCart cart, string token, string payerId);
     } 
 
@@ -22,6 +23,7 @@ namespace MichellesWebsite
     /// </summary>
     public class TransactionService : ITransactionService
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
         private PayPalMvc.ITransactionRegistrar _payPalTransactionRegistrar = new PayPalMvc.TransactionRegistrar();
 
         public SetExpressCheckoutResponse SendPayPalSetExpressCheckoutRequest(ApplicationCart cart, string serverURL, string userEmail = null)
@@ -38,23 +40,26 @@ namespace MichellesWebsite
                 {
                     expressCheckoutItems = new List<ExpressCheckoutItem>();
                     foreach (ApplicationCartItem item in cart.Items)
-                        expressCheckoutItems.Add(new ExpressCheckoutItem(item.Quantity, item.Price, item.Name, item.Name));
+                        expressCheckoutItems.Add(new ExpressCheckoutItem((int)item.Quantity, item.Price, item.Name, item.Name));
                 }
 
                 SetExpressCheckoutResponse response = _payPalTransactionRegistrar.SendSetExpressCheckout(cart.Currency, cart.TotalPrice, cart.PurchaseDescription, cart.Id.ToString(), serverURL, expressCheckoutItems, userEmail);
                 // Add a PayPal transaction record
                 PayPalTransaction transaction = new PayPalTransaction
                 {
+                    TransactionId = Guid.NewGuid(),
+                    SaleID = cart.SaleId,
                     RequestId = response.RequestId,
                     TrackingReference = cart.Id.ToString(),
-                    RequestTime = DateTime.Now,
+                    RequestTime = DateTime.UtcNow,
                     RequestStatus = response.ResponseStatus.ToString(),
                     TimeStamp = response.TIMESTAMP,
                     RequestError = response.ErrorToString,
                     Token = response.TOKEN,
                 };
 
-                // Store this transaction in your Database
+                db.PayPalTransactions.Add(transaction);
+                db.SaveChanges();
 
                 return response;
             }
@@ -65,7 +70,7 @@ namespace MichellesWebsite
             return null;
         }
 
-        public GetExpressCheckoutDetailsResponse SendPayPalGetExpressCheckoutDetailsRequest(string token)
+        public GetExpressCheckoutDetailsResponse SendPayPalGetExpressCheckoutDetailsRequest(string token, ApplicationCart cart)
         {
             try
             {
@@ -75,9 +80,11 @@ namespace MichellesWebsite
                 // Add a PayPal transaction record
                 PayPalTransaction transaction = new PayPalTransaction
                 {
+                    TransactionId = Guid.NewGuid(),
                     RequestId = response.RequestId,
+                    SaleID = cart.SaleId,
                     TrackingReference = response.TrackingReference,
-                    RequestTime = DateTime.Now,
+                    RequestTime = DateTime.UtcNow,
                     RequestStatus = response.ResponseStatus.ToString(),
                     TimeStamp = response.TIMESTAMP,
                     RequestError = response.ErrorToString,
@@ -87,6 +94,8 @@ namespace MichellesWebsite
                 };
 
                 // Store this transaction in your Database
+                db.PayPalTransactions.Add(transaction);
+                db.SaveChanges();
 
                 return response;
             }
@@ -107,9 +116,10 @@ namespace MichellesWebsite
                 // Add a PayPal transaction record
                 PayPalTransaction transaction = new PayPalTransaction
                 {
+                    TransactionId = Guid.NewGuid(),
                     RequestId = response.RequestId,
                     TrackingReference = cart.Id.ToString(),
-                    RequestTime = DateTime.Now,
+                    RequestTime = DateTime.UtcNow,
                     RequestStatus = response.ResponseStatus.ToString(),
                     TimeStamp = response.TIMESTAMP,
                     RequestError = response.ErrorToString,
@@ -120,6 +130,8 @@ namespace MichellesWebsite
                 };
 
                 // Store this transaction in your Database
+                db.PayPalTransactions.Add(transaction);
+                db.SaveChanges();
 
                 return response;
             }

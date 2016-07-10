@@ -30,7 +30,7 @@ namespace MichellesWebsite
 
         private static void DoTrace(string message)
         {
-            Trace.WriteLine(DateTime.Now + " - " + message);
+            Trace.WriteLine(DateTime.UtcNow + " - " + message);
         }
     }
 }

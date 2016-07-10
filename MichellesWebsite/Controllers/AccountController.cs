@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using MichellesWebsite.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace MichellesWebsite.Controllers
 {
@@ -17,6 +18,7 @@ namespace MichellesWebsite.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         public AccountController()
         {
@@ -61,6 +63,8 @@ namespace MichellesWebsite.Controllers
             return View();
         }
 
+
+
         //
         // POST: /Account/Login
         [HttpPost]
@@ -104,8 +108,6 @@ namespace MichellesWebsite.Controllers
             return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
 
-
-
         //
         // POST: /Account/VerifyCode
         [HttpPost]
@@ -135,40 +137,78 @@ namespace MichellesWebsite.Controllers
                     return View(model);
             }
         }
+        [Authorize(Roles = "Administrator")]
+        public ActionResult CreateRole()
+        {
+            return View();
+        }
 
+        [HttpPost]
+        [Authorize(Roles = "Administrator")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateRole(CreateRoleModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
+
+                if (!roleManager.RoleExists(model.Role))
+                {
+                    var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+                    role.Name = model.Role;
+                    var result = await roleManager.CreateAsync(role);
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                    AddErrors(result);
+                }
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
         // GET: /Account/Register
+        [Authorize(Roles = "Administrator")]
         public ActionResult CreateUser()
         {
-            ViewBag.Roles = System.Web.Security.Roles.GetAllRoles().ToList();
-            return View();
+            CreateUserViewModel model = new CreateUserViewModel();
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
+            model.Roles =  roleManager.Roles.Select(d => new SelectListItem
+            {
+                Value = d.Name,
+                Text = d.Name
+            });
+            return View(model);
         }
 
         //
         // POST: /Account/Register
         [HttpPost]
+        [Authorize(Roles ="Administrator")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateUser(RegisterViewModel model, string role)
+        public async Task<ActionResult> CreateUser(CreateUserViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FullName = model.FullName };
                 var result = await UserManager.CreateAsync(user, model.Password);
-                UserManager.AddToRole(user.Id, role);
+                UserManager.AddToRole(user.Id, model.SelectedValue);
+                if(model.SelectedValue != "User")
+                    UserManager.AddToRole(user.Id, "User");
+
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
             }
-
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
+            model.Roles = roleManager.Roles.Select(d => new SelectListItem
+            {
+                Value = d.Name,
+                Text = d.Name
+            });
             // If we got this far, something failed, redisplay form
             return View(model);
         }
@@ -190,12 +230,15 @@ namespace MichellesWebsite.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FullName = model.FullName };
                 var result = await UserManager.CreateAsync(user, model.Password);
+                model.address.userId = user.Id;
+                db.Addresses.Add(model.address);
+                db.SaveChanges();
                 if (result.Succeeded)
                 {
+                    UserManager.AddToRole(user.Id, "User");
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);

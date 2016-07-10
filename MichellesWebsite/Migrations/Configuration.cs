@@ -10,7 +10,6 @@ namespace MichellesWebsite.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
-            ContextKey = "MichellesWebsite.Models.ApplicationDbContext";
         }
 
         protected override void Seed(MichellesWebsite.Models.ApplicationDbContext context)

@@ -1,0 +1,81 @@
+﻿@model IEnumerable<MichellesWebsite.Models.SaleViewModel>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@using (Html.BeginForm())
+{
+    <table>
+
+        <tr>
+            <th>
+                Select date from:
+            </th>
+            <td>
+                <input type="datetime" name="SearchDateFrom" value="@ViewBag.SearchDateFrom" />
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Select date to:
+            </th>
+            <td>
+                <input type="datetime" name="SearchDateTo" value="@ViewBag.SearchDateTo" />
+            </td>
+        </tr>
+        
+    </table>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Search" class="btn btn-default" />
+        </div>
+    </div>
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TimeStamp)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.status)
+            </th>
+            <th>
+                Details
+            </th>
+        </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.TimeStamp)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.status)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "OrderDetails", new { id=item.SaleId })
+            </td>
+        </tr>
+
+    }
+
+</table>
+
+}
+<br />
+Page @(((PagedList.IPagedList)Model).PageCount < ((PagedList.IPagedList)Model).PageNumber ? 0 : ((PagedList.IPagedList)Model).PageNumber) of @(((PagedList.IPagedList)Model).PageCount)
+
+@Html.PagedListPager((PagedList.IPagedList)Model, page => Url.Action("Orders",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

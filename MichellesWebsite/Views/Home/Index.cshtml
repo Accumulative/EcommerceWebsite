@@ -2,28 +2,60 @@
     ViewBag.Title = "Home Page";
 }
 
+
+
 <div class="jumbotron">
+	<div id="mainSec">
     <h1>MALIBRACE</h1>
-    <p class="lead">MALIBRACE是个卖质量很高的红糖的公司。我们2013开始进去英国的市场给中国人不错的价格。</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">看一下 &raquo;</a></p>
+    <h2> . . .@ViewRes.SharedStrings.MainSubtitle</h2>
+    <br />
+    <p align="left">MALIBRACE sells HeiTang to anywhere within the UK and China. Please feel welcome to browser our products, and visit our social network sites!
+    <a href="http://asp.net" class="btn btn-primary btn-sm">Find out more -></a>
+    </p>
+    </div>
+    <div id="mainPic" align="right">
+    	<img id="pic" src="~/Images/MalibracePic.jpg" width="300">
+    </div>
 </div>
 
+
 <div class="row">
-    <div class="col-md-4">
-        <h2>四物</h2>
+    <div class="col-md-8">
+        <h2>Latest News</h2>
+        <div class="newsItem">
+        <h3>Malibrace has just launched its website.</h3>
         <p>
-            四物是最贵的所以应该对你的菊花非常好。来买就可以让你的男友进去没问题。
+            Please take some time to look around at our products!
         </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">看一下 &raquo;</a></p>
+        <p><a class="btn btn-default" href="@Url.Action("Index", "ViewProduct")">Take a look &raquo;</a></p>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+    	<h2>Products</h2>
+    	<div class="newsItem">
+        <h3>Red Date</h3>
+        <p>Red Date helps menstrual pain, cold hands and feet, hair loss and blood flow. It helps recovery of bones, post birth health, womb contractions and increased milk secretion</p>
+        <p><a class="btn btn-default" href="@Url.Action("Index", "ViewProduct")">Take a look &raquo;</a></p>
+        </div>
+    </div>
+</div>
+<div class="row">
+	
+    <div class="col-md-8">
+        <div class="newsItem">
+        <h3>No new news at the moment</h3>
+        <p>
+            Please check back for regular developments, and report any problems that you may come across.
+        </p>
+        <p><a class="btn btn-default" href="@Url.Action("Index", "ViewProduct")">Take a look &raquo;</a></p>
+        </div>
     </div>
     <div class="col-md-4">
-        <h2>玫瑰</h2>
-        <p>玫瑰是女人最好的朋友. 都不会来不及。吃这个就永远不要吃别的东西。</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">看一下 &raquo;</a></p>
+    <div class="newsItem">
+        <h3>Rose sugar</h3>
+        <p>Rose sugar helps menstrual pain, cold hands and feet, hair loss and blood flow. It helps recovery of bones, post birth health, womb contractions and increased milk secretion.</p>
+        <p><a class="btn btn-default" href="@Url.Action("Index", "ViewProduct")">Take a look &raquo;</a></p>
     </div>
-    <div class="col-md-4">
-        <h2>红枣</h2>
-        <p>红枣不要跟就乱搞应为我带吓儿给你女儿。</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">看一下 &raquo;</a></p>
     </div>
 </div>

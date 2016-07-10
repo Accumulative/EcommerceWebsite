@@ -1,0 +1,93 @@
+﻿@model IEnumerable<MichellesWebsite.Models.PayPalTransaction>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.RequestId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TrackingReference)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RequestTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RequestStatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TimeStamp)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RequestError)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Token)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PayerId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RequestData)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PaymentTransactionId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PaymentError)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.RequestId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TrackingReference)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RequestTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RequestStatus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TimeStamp)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RequestError)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Token)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PayerId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RequestData)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PaymentTransactionId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PaymentError)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.TransactionId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.TransactionId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.TransactionId })
+        </td>
+    </tr>
+}
+
+</table>

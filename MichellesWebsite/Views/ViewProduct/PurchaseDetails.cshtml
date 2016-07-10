@@ -5,23 +5,21 @@
 }
 
 <h2>@ViewBag.Title</h2>
-<p>
-    Your purchase details;
-</p>
+<h4>
+    Your purchase details
+</h4>
 <ul>
-    <li>Unique Id: @Model.Id</li>
     @if (Model.PurchaseDescription != null)
     {
-        <li>Purchase Description: @Model.PurchaseDescription</li>
+        <p>Purchase Description: @Model.PurchaseDescription</p>
     }
-    <li>Currency: @Model.Currency</li>
-    <li>Total Price: @Model.TotalPrice</li>
+    <p>Total Price: @Model.TotalPrice @Model.Currency</p>
 </ul>
 
 @if (Model.Items != null)
 {
     <p>
-        Your cart contents;
+        Your cart contents:
     </p>
     <ul>
         @foreach (MichellesWebsite.Models.ApplicationCartItem item in Model.Items)
@@ -29,8 +27,13 @@
             <li>@(item.Quantity + " x " + item.Name + " @ " + item.Price + " each")</li>
         }
     </ul>
-}
 
-<a href="@Url.Action("PayPalExpressCheckout", "Purchase")">
-    <img src="https://www.paypalobjects.com/en_US/i/btn/btn_xpressCheckout.gif" alt="PayPal" />
-</a>
+}
+@using (Html.BeginForm("PayPalExpressCheckout", "Purchase", FormMethod.Post))
+{
+    @Html.DropDownList("Addresses");
+
+    <button type="submit">
+        <img src="https://www.paypalobjects.com/en_US/i/btn/btn_xpressCheckout.gif" alt="PayPal" />
+    </button>
+}

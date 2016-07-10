@@ -1,0 +1,48 @@
+﻿@model IEnumerable<MichellesWebsite.Models.StockTransaction>
+
+@{
+    ViewBag.Title = "ListStockTransactions";
+}
+
+<h2>ListStockTransactions</h2>
+
+<p>
+    @Html.ActionLink("Add stock", "AddStock", new { id = ViewBag.Id })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductModel.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Details)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ts)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductModel.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Amount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Details)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ts)
+        </td>
+    </tr>
+}
+
+</table>
+<p>
+    @Html.ActionLink("Back", "Index")
+</p>

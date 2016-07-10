@@ -1,58 +1,59 @@
-﻿@model MichellesWebsite.Models.ProductModel
+﻿@model MichellesWebsite.Models.ProductViewModel
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Product Details";
 }
 
-<h2>Details</h2>
+<h2>Product Details</h2>
 
 <div>
-    <h4>ProductModel</h4>
+    <h4>@Model.name</h4>
     <hr />
-    @using (Html.BeginForm("PurchaseDetails","ViewProduct"))
+    @using (Html.BeginForm("PurchaseDetails", "ViewProduct",FormMethod.Post))
     {
+        <img src="https://chineselearningblob.blob.core.windows.net/containername/@Model.picture" alt="@Model.picture" width="300" height="300" />
+        <hr />
         <dl class="dl-horizontal">
+            @Html.HiddenFor(x => x.ID)
+            @Html.HiddenFor(x => x.price)
             <dt>
-                @Html.DisplayNameFor(model => model.name)
+                @Html.DisplayNameFor(x => x.name)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.name)
+                @Html.DisplayFor(x => x.name)
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.description)
+                @Html.DisplayNameFor(x => x.description)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.description)
+                @Html.DisplayFor(x => x.description)
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.ts)
+                @Html.DisplayNameFor(x => x.price)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.ts)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.picture)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.picture)
+                @Html.DisplayFor(x => x.price)
             </dd>
             <dt>
-                Quantity:
+                @Html.DisplayNameFor(x => x.quantity)
             </dt>
 
             <dd>
-                <input type="number" value="0" name="quantity" id="quantity"/>
+                @Html.EditorFor(x => x.quantity, new { htmlAttributes = new { min = 0 } })
             </dd>
-            
+
         </dl>
-        <input type="submit" />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Buy" class="btn btn-default" />
+            </div>
+        </div>
+
     }
 </div>
 <p>

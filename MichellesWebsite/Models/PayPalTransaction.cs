@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -10,6 +11,10 @@ namespace MichellesWebsite.Models
     /// </summary>
     public class PayPalTransaction
     {
+        [Key]
+        public Guid TransactionId { get; set; }
+        [StringLength(128)]
+        public string SaleID { get; set; }
         public string RequestId { get; set; }
         public string TrackingReference { get; set; }
         public DateTime RequestTime { get; set; }

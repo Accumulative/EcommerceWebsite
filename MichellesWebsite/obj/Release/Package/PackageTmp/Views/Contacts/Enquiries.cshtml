@@ -1,0 +1,51 @@
+﻿@model IEnumerable<MichellesWebsite.Models.ContactView>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.queryType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.message)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ts)
+        </th>
+        <th>
+            Options
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.queryType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.message)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ts)
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "Delete", new { id = item.EnquiryId })
+            </td>
+            <td>
+                @Html.ActionLink("Details", "EnquiryDetails", new { id = item.EnquiryId })
+            </td>
+        </tr>
+    }
+</table>
+<p>
+    @Html.ActionLink("Back to Account", "Index", "Manage", null)
+</p>

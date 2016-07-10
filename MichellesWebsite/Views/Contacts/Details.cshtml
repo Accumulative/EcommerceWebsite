@@ -1,0 +1,57 @@
+﻿
+@model MichellesWebsite.Models.ContactListView
+
+@{
+    ViewBag.Title = "Enquiry details";
+}
+
+<h2>Enquiry details</h2>
+
+<dt>
+    @Html.DisplayNameFor(model => model.queryType)
+</dt>
+<dd>
+    @Html.DisplayFor(model => model.queryType)
+</dd>
+
+<p>
+    @Html.ActionLink("Reply", "ReplyAdmin", new { id = Model.messages[0].EnquiryId })
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.messages[0].message)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.messages[0].ts)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.messages[0].FromCustomer)
+        </th>
+    </tr>
+
+    @foreach (var item in Model.messages)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.message)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ts)
+            </td>
+            <td>
+                @if (item.FromCustomer == true)
+                {
+                    <text>Incoming</text>
+}
+else
+{<text>Outgoing</text>}
+            </td>
+        </tr>
+    }
+
+</table>
+<p>
+    @Html.ActionLink("Back to list", "Index")
+</p>

@@ -16,6 +16,8 @@ namespace MichellesWebsite.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        public string FullName { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -35,5 +37,19 @@ namespace MichellesWebsite.Models
         public System.Data.Entity.DbSet<MichellesWebsite.Models.ProductPrice> ProductPrices { get; set; }
 
         public System.Data.Entity.DbSet<MichellesWebsite.Models.SaleModel> SaleModels { get; set; }
+
+        public System.Data.Entity.DbSet<MichellesWebsite.Models.PayPalTransaction> PayPalTransactions { get; set; }
+
+        public System.Data.Entity.DbSet<MichellesWebsite.Models.SaleProductModel> SaleProductModels { get; set; }
+
+        public System.Data.Entity.DbSet<MichellesWebsite.Models.Contact> Contacts { get; set; }
+
+        public System.Data.Entity.DbSet<MichellesWebsite.Models.News> News { get; set; }
+
+        public System.Data.Entity.DbSet<MichellesWebsite.Models.Address> Addresses { get; set; }
+
+        public System.Data.Entity.DbSet<MichellesWebsite.Models.Enquiry> Enquiries { get; set; }
+
+        public System.Data.Entity.DbSet<MichellesWebsite.Models.StockTransaction> StockTransactions { get; set; }
     }
 }

@@ -1,0 +1,112 @@
+﻿@model MichellesWebsite.Models.PayPalTransaction
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>PayPalTransaction</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.RequestId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RequestId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TrackingReference)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TrackingReference)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RequestTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RequestTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RequestStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RequestStatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeStamp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TimeStamp)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RequestError)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RequestError)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Token)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Token)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PayerId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PayerId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RequestData)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RequestData)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PaymentTransactionId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PaymentTransactionId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PaymentError)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PaymentError)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

@@ -1,4 +1,4 @@
-﻿@model MichellesWebsite.Models.ProductStore
+﻿@model IEnumerable<MichellesWebsite.Models.ProductViewModel>
 
 @{
     ViewBag.Title = "Products";
@@ -6,31 +6,48 @@
 
 <h2>Index</h2>
 
-    @for (int i =0; i< Model.products.Count; i++)
-    {
-        if (i % 4 == 0){Html.Raw("<div class=row>");}
-            <div class="col-md-3">
-                <h2>@Model.products[i].name</h2>
-                <p>@Model.products[i].description<p>
-                <img src="https://chineselearningblob.blob.core.windows.net/containername/@Model.products[i].picture" alt="@Model.products[i].picture" width="150" height="150" />
-                <table>
-                    <tr>
-                        <td>
-                            @Html.ActionLink("Product details", "Details", "ViewProduct", new { productId = Model.products[i].ID }, null)
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            Price:
-                        </th>
-                        <td>
-                            @Model.prices[i]
-                        </td>
-                    </tr>
-                </table><p></p>
-            </div>
-       if(i % 3 == 0) {Html.Raw("</div>");
-        }
-    }
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(x => x.picture)
+        </th>
+        <th>
+            @Html.DisplayNameFor(x => x.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(x => x.description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(x => x.price)
+        </th>
+        <th>
+            Options
+        </th>
+    </tr>
 
-    
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <img src="https://chineselearningblob.blob.core.windows.net/containername/@item.picture" alt="@item.picture" width="150" height="150" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.description)
+            </td>
+
+            <td>
+                £@Html.DisplayFor(modelItem => item.price)
+            </td>
+            
+            <td>
+                @Html.ActionLink("Details", "Details", "ViewProduct", new { productId = item.ID }, null)
+            </td>
+            
+        </tr>
+
+    }
+</table>
+

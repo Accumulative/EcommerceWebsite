@@ -18,10 +18,19 @@
             @Html.DisplayNameFor(model => model.description)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.zhName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.zhDescription)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.ts)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.picture)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.stock)
         </th>
         <th></th>
     </tr>
@@ -35,17 +44,27 @@
             @Html.DisplayFor(modelItem => item.description)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.zhName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.zhDescription)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.ts)
         </td>
         <td>
             <a href="https://chineselearningblob.blob.core.windows.net/containername/@item.picture">View Picture</a>
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID }) | 
-            @Html.ActionLink("Upload picture", "UploadPicture", new { id = item.ID }) |
-            @Html.ActionLink("Product pricing", "UpdatePrice", new { id = item.ID })
+            @Html.DisplayFor(modelItem => item.stock)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) <br/>
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) <br />
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID }) <br />
+            @Html.ActionLink("Upload picture", "UploadPicture", new { id = item.ID }) <br />
+            @Html.ActionLink("Product pricing", "UpdatePrice", new { id = item.ID }) <br />
+            @Html.ActionLink("Product stock", "ListStockTransactions", new { id = item.ID })
         </td>
     </tr>
 }
