@@ -121,12 +121,12 @@ namespace MichellesWebsite.Controllers
         [Authorize(Roles = "Administrator")]
         public ActionResult Details(Guid id)
         {
-            if (String.IsNullOrEmpty(null))
+            if (id == Guid.Empty)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             
-            SaleModel saleModel = db.SaleModels.Find(id);
+            SaleModel saleModel = db.SaleModels.Single(x => x.SaleId == id);
             ApplicationUser user = db.Users.Find(saleModel.CustomerId);
             Address address = db.Addresses.Find(saleModel.AddressId);
             SaleViewModel saleViewModel = new SaleViewModel
@@ -163,12 +163,12 @@ namespace MichellesWebsite.Controllers
         [Authorize(Roles = "User")]
         public ActionResult OrderDetails(Guid id)
         {
-            if (String.IsNullOrEmpty(id.ToString()))
+            if (id == Guid.Empty)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            SaleModel saleModel = db.SaleModels.Find(id);
+            SaleModel saleModel = db.SaleModels.Single(x => x.SaleId == id);
             Address address = db.Addresses.Find(saleModel.AddressId);
             SaleViewModel saleViewModel = new SaleViewModel
             {
@@ -228,11 +228,11 @@ namespace MichellesWebsite.Controllers
         [Authorize(Roles ="Administrator")]
         public ActionResult Edit(Guid id)
         {
-            if (String.IsNullOrEmpty(null))
+            if (id == Guid.Empty)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SaleModel saleModel = db.SaleModels.Find(id);
+            SaleModel saleModel = db.SaleModels.Single(x => x.SaleId == id);
             if (saleModel == null)
             {
                 return HttpNotFound();
@@ -261,7 +261,7 @@ namespace MichellesWebsite.Controllers
         [Authorize(Roles = "Administrator")]
         public ActionResult Delete(Guid id)
         {
-            if (String.IsNullOrEmpty(null))
+            if (id == Guid.Empty)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -277,9 +277,9 @@ namespace MichellesWebsite.Controllers
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator")]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(Guid id)
         {
-            SaleModel saleModel = db.SaleModels.Find(id);
+            SaleModel saleModel = db.SaleModels.Single(x => x.SaleId == id);
             db.SaleModels.Remove(saleModel);
             db.SaveChanges();
             return RedirectToAction("Index");

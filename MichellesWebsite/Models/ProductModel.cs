@@ -38,7 +38,7 @@ namespace MichellesWebsite.Models
         [Display(Name = "Price")]
         public decimal price { get; set; }
         [Display(Name = "Quantity")]
-        public uint quantity { get; set; }
+        public int quantity { get; set; }
     }
     public class StockTransaction
     {

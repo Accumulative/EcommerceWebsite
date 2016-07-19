@@ -39,6 +39,7 @@ namespace MichellesWebsite.Models
         [Display(Name = "Failed")]
         Failed = 8
     }
+    
     public class SaleProductModel
     {
         [Key]
@@ -50,7 +51,7 @@ namespace MichellesWebsite.Models
         [ForeignKey("ProductModel")]
         public int ProductId { get; set; }
         public virtual ProductModel ProductModel {get;set;}
-        public uint Quantity { get; set; }
+        public int Quantity { get; set; }
     }
     public class SaleViewModel
     {
