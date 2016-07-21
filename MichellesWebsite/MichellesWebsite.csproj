@@ -222,6 +222,7 @@
     <Compile Include="BlobHandler.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AddressController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ContactsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -231,6 +232,7 @@
     <Compile Include="Controllers\SaleModelsController.cs" />
     <Compile Include="Controllers\UserAddressController.cs" />
     <Compile Include="Controllers\ViewProductController.cs" />
+    <Compile Include="CultureHelper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -251,8 +253,8 @@
     <Compile Include="Models\ApplicationCartItem.cs" />
     <Compile Include="Models\PayPalTransaction.cs" />
     <Compile Include="Controllers\PurchaseController.cs" />
-    <Compile Include="Resources\SharedStrings.zh.Designer.cs">
-      <DependentUpon>SharedStrings.zh.resx</DependentUpon>
+    <Compile Include="Resources\SharedStrings.zh-CN.Designer.cs">
+      <DependentUpon>SharedStrings.zh-CN.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
@@ -273,10 +275,12 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\chineseflag.jpg" />
     <Content Include="Images\facebook-logo.png" />
     <Content Include="Images\instagramLogo.jpg" />
     <Content Include="Images\instagramLogoOld.jpg" />
     <Content Include="Images\MalibracePic.jpg" />
+    <Content Include="Images\Ukflag.png" />
     <Content Include="Images\wechatLogo.png" />
     <Content Include="Images\wechatQR.JPG" />
     <Content Include="Images\weiboLogo.png" />
@@ -386,6 +390,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -399,9 +404,9 @@
     <EmbeddedResource Include="Migrations\201607092243425_Initial.resx">
       <DependentUpon>201607092243425_Initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\SharedStrings.zh.resx">
+    <EmbeddedResource Include="Resources\SharedStrings.zh-CN.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>SharedStrings.zh.Designer.cs</LastGenOutput>
+      <LastGenOutput>SharedStrings.zh-CN.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\SharedStrings.resx">

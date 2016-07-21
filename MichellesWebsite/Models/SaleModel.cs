@@ -22,21 +22,21 @@ namespace MichellesWebsite.Models
     }
     public enum Status
     {
-        [Display(Name = "On hold")]
+        [Display(Name="SaleOnHold", ResourceType = typeof(ViewRes.SharedStrings))]
         Hold = 1,
-        [Display(Name = "Dispatched")]
+        [Display(Name = "SaleDispatched", ResourceType = typeof(ViewRes.SharedStrings))]
         Dispatched = 2,
-        [Display(Name = "Processing")]
+        [Display(Name = "SaleProcessing", ResourceType = typeof(ViewRes.SharedStrings))]
         Processing = 3,
-        [Display(Name = "Done")]
+        [Display(Name = "SaleFinished", ResourceType = typeof(ViewRes.SharedStrings))]
         Done = 4,
-        [Display(Name = "Ordered")]
+        [Display(Name = "SaleOrdered", ResourceType = typeof(ViewRes.SharedStrings))]
         Ordered = 5,
-        [Display(Name = "Cancelled")]
+        [Display(Name = "SaleCancelled", ResourceType = typeof(ViewRes.SharedStrings))]
         Cancelled = 6,
-        [Display(Name = "Processing payment")]
+        [Display(Name = "SalePayment", ResourceType = typeof(ViewRes.SharedStrings))]
         Ordering = 7,
-        [Display(Name = "Failed")]
+        [Display(Name = "SaleCancelled", ResourceType = typeof(ViewRes.SharedStrings))]
         Failed = 8
     }
     

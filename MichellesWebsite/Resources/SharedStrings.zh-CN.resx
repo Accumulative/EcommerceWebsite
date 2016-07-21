@@ -117,97 +117,166 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Address1" xml:space="preserve">
+    <value>地址</value>
+  </data>
+  <data name="Address2" xml:space="preserve">
+    <value> </value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value> </value>
+  </data>
   <data name="ConfirmPassword" xml:space="preserve">
-    <value>Confirm password</value>
+    <value>确认密码</value>
+  </data>
+  <data name="ConfirmPasswordError" xml:space="preserve">
+    <value>密码不正确，请重新输入。</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>国家</value>
   </data>
   <data name="Email" xml:space="preserve">
-    <value>Email</value>
+    <value>邮箱</value>
+  </data>
+  <data name="EnquiryError" xml:space="preserve">
+    <value>请正确填写信息。</value>
   </data>
   <data name="ExploreBtn" xml:space="preserve">
-    <value>Find out more -&gt;</value>
+    <value>更多发现 -&gt;</value>
   </data>
   <data name="FullName" xml:space="preserve">
-    <value>Full name</value>
+    <value>姓名</value>
+  </data>
+  <data name="GeneralQuery" xml:space="preserve">
+    <value>其他问题</value>
   </data>
   <data name="LoginBtn" xml:space="preserve">
-    <value>Log in</value>
+    <value>确认</value>
   </data>
   <data name="LoginPassword" xml:space="preserve">
-    <value>Password</value>
+    <value>密码</value>
   </data>
   <data name="LoginRegister" xml:space="preserve">
-    <value>Register as a new user</value>
+    <value>注册</value>
   </data>
   <data name="LoginRememberMe" xml:space="preserve">
-    <value>Remember me?</value>
+    <value>记住？</value>
   </data>
   <data name="LoginSubTitle" xml:space="preserve">
-    <value>Use a local account to log in.</value>
+    <value> </value>
   </data>
   <data name="LoginTitle" xml:space="preserve">
-    <value>Log in.</value>
+    <value>登入</value>
   </data>
   <data name="MainNews" xml:space="preserve">
-    <value>Latest News</value>
+    <value>最新消息</value>
   </data>
   <data name="MainProducts" xml:space="preserve">
-    <value>Products</value>
+    <value>产品</value>
   </data>
   <data name="MainSubtext" xml:space="preserve">
-    <value>MALIBRACE sells HeiTang to anywhere within the UK and China. Please feel welcome to browser our products, and visit our social network sites!</value>
+    <value>MALIBRACE由100%纯优质甘蔗熬制，绝不添加食品添加剂，防腐剂，人工色素等，纯手工定制，非机器制作。</value>
   </data>
   <data name="MainSubtitle" xml:space="preserve">
-    <value>从2011年买了黑糖</value>
+    <value>Malibrace 纯手工定制</value>
   </data>
   <data name="NavBarAbout" xml:space="preserve">
-    <value>About</value>
+    <value>关于我们</value>
   </data>
   <data name="NavBarContact" xml:space="preserve">
-    <value>Contact</value>
+    <value>联络方式</value>
   </data>
   <data name="NavBarHome" xml:space="preserve">
-    <value>Home</value>
+    <value>主页</value>
   </data>
   <data name="NavBarLogin" xml:space="preserve">
-    <value>Login</value>
+    <value>登入</value>
   </data>
   <data name="NavBarProducts" xml:space="preserve">
-    <value>Products</value>
+    <value>产品</value>
   </data>
   <data name="NavBarRegister" xml:space="preserve">
-    <value>Register</value>
+    <value>注册</value>
   </data>
   <data name="NavBarWelcome" xml:space="preserve">
-    <value>Hello</value>
+    <value>欢迎</value>
+  </data>
+  <data name="OrderQuery" xml:space="preserve">
+    <value>订单问题</value>
   </data>
   <data name="Password" xml:space="preserve">
-    <value>Password</value>
+    <value>密码</value>
+  </data>
+  <data name="PasswordError" xml:space="preserve">
+    <value>{0}必须至少{2}位数字和字母组合</value>
+  </data>
+  <data name="Postcode" xml:space="preserve">
+    <value>邮编</value>
+  </data>
+  <data name="ProductQuery" xml:space="preserve">
+    <value>产品问题</value>
   </data>
   <data name="ProductsDescription" xml:space="preserve">
-    <value>Description</value>
+    <value>产品描述</value>
   </data>
   <data name="ProductsName" xml:space="preserve">
-    <value>ProductName</value>
+    <value>产品名称</value>
   </data>
   <data name="ProductsOptions" xml:space="preserve">
-    <value>Options</value>
+    <value>关联</value>
   </data>
   <data name="ProductsPicture" xml:space="preserve">
-    <value>Picture</value>
+    <value>图片</value>
   </data>
   <data name="ProductsPrice" xml:space="preserve">
-    <value>Price</value>
+    <value>价格</value>
   </data>
   <data name="ProductsTitle" xml:space="preserve">
-    <value>Product list</value>
+    <value>产品列表</value>
+  </data>
+  <data name="QueryType" xml:space="preserve">
+    <value>请选择问题种类</value>
   </data>
   <data name="RegisterBtn" xml:space="preserve">
-    <value>Register</value>
+    <value>注册</value>
   </data>
   <data name="RegisterSubTitle" xml:space="preserve">
-    <value>Create a new account.</value>
+    <value>创建新账户</value>
   </data>
   <data name="RegisterTitle" xml:space="preserve">
-    <value>Register</value>
+    <value>注册</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>记住？</value>
+  </data>
+  <data name="SaleCancelled" xml:space="preserve">
+    <value>取消（订单）</value>
+  </data>
+  <data name="SaleDispatched" xml:space="preserve">
+    <value>已发出</value>
+  </data>
+  <data name="SaleFailed" xml:space="preserve">
+    <value>（购买）失败</value>
+  </data>
+  <data name="SaleFinished" xml:space="preserve">
+    <value>完成</value>
+  </data>
+  <data name="SaleOnHold" xml:space="preserve">
+    <value>等候</value>
+  </data>
+  <data name="SaleOrdered" xml:space="preserve">
+    <value>已付款</value>
+  </data>
+  <data name="SalePayment" xml:space="preserve">
+    <value>等待时间过长，请重新购买。</value>
+  </data>
+  <data name="SaleProcessing" xml:space="preserve">
+    <value>等待中</value>
+  </data>
+  <data name="TelephoneNumber" xml:space="preserve">
+    <value>电话</value>
+  </data>
+  <data name="Timestamp" xml:space="preserve">
+    <value>创建日期</value>
   </data>
 </root>

@@ -9,9 +9,9 @@ using PayPalMvc;
 using PayPalMvc.Enums;
 using Microsoft.AspNet.Identity;
 
-namespace SampleMVC3WebApplication.Controllers
+namespace MichellesWebsite.Controllers
 {
-    public class PurchaseController : Controller
+    public class PurchaseController : BaseController
     {
         private static TransactionService transactionService = new TransactionService();
         private ApplicationDbContext db = new ApplicationDbContext();

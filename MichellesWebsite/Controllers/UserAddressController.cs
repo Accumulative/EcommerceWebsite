@@ -12,7 +12,7 @@ using Microsoft.AspNet.Identity;
 namespace MichellesWebsite.Controllers
 {
     [Authorize]
-    public class UserAddressController : Controller
+    public class UserAddressController : BaseController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 

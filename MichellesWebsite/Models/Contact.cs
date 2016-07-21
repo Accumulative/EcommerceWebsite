@@ -14,7 +14,8 @@ namespace MichellesWebsite.Models
         [ForeignKey("Enquiry")]
         public int EnquiryId { get; set; }
         public virtual Enquiry Enquiry { get; set; }
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(ViewRes.SharedStrings),
+                      ErrorMessageResourceName = "EnquiryError")]
         public string message { get; set; }
         public DateTime ts { get; set; }
         // true is yes, false is no
@@ -22,11 +23,11 @@ namespace MichellesWebsite.Models
     }
     public enum QueryType
     {
-        [Display(Name="Product Query")]
+        [Display(Name = "ProductQuery", ResourceType = typeof(ViewRes.SharedStrings))]
         ProductQuery = 1,
-        [Display(Name = "Order Query")]
+        [Display(Name = "OrderQuery", ResourceType = typeof(ViewRes.SharedStrings))]
         OrderQuery = 2,
-        [Display(Name = "General Query")]
+        [Display(Name = "GeneralQuery", ResourceType = typeof(ViewRes.SharedStrings))]
         GeneralQuery = 3
     }
     public class Enquiry

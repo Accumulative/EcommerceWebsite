@@ -13,7 +13,7 @@ using Microsoft.AspNet.Identity;
 namespace MichellesWebsite.Controllers
 {
     
-    public class ViewProductController : Controller
+    public class ViewProductController : BaseController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 

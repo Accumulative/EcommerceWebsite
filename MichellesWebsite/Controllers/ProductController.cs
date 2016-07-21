@@ -11,7 +11,7 @@ using MichellesWebsite.Models;
 namespace MichellesWebsite.Controllers
 {
     [Authorize(Roles = "Administrator")]
-    public class ProductController : Controller
+    public class ProductController : BaseController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 

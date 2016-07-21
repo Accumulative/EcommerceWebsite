@@ -10,7 +10,7 @@ using MichellesWebsite.Models;
 
 namespace MichellesWebsite.Controllers
 {
-    public class NewsController : Controller
+    public class NewsController : BaseController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
