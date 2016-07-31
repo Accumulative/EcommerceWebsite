@@ -224,6 +224,7 @@
     <Compile Include="Controllers\AddressController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ContactsController.cs" />
+    <Compile Include="Controllers\CultureCountriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
@@ -240,9 +241,14 @@
     <Compile Include="Migrations\201607092243425_Initial.Designer.cs">
       <DependentUpon>201607092243425_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201607311028092_ChineseVersion.cs" />
+    <Compile Include="Migrations\201607311028092_ChineseVersion.Designer.cs">
+      <DependentUpon>201607311028092_ChineseVersion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Contact.cs" />
+    <Compile Include="Models\CultureCountry.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\News.cs" />
@@ -387,6 +393,11 @@
     <Content Include="Views\Product\ListStockTransactions.cshtml" />
     <Content Include="Views\Product\AddStock.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\CultureCountries\Create.cshtml" />
+    <Content Include="Views\CultureCountries\Delete.cshtml" />
+    <Content Include="Views\CultureCountries\Details.cshtml" />
+    <Content Include="Views\CultureCountries\Edit.cshtml" />
+    <Content Include="Views\CultureCountries\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -403,6 +414,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201607092243425_Initial.resx">
       <DependentUpon>201607092243425_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607311028092_ChineseVersion.resx">
+      <DependentUpon>201607311028092_ChineseVersion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\SharedStrings.zh-CN.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

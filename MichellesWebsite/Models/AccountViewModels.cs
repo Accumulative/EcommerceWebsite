@@ -30,14 +30,13 @@ namespace MichellesWebsite.Models
         public Country country { get; set; }
         
     }
-    public enum Country
-    {
-        [Display(Name ="United Kingdom")]
-        UK = 1,
-        [Display(Name = "Republic of China")]
-        ZH = 2
-
-    }
+        public enum Country
+        {
+            [Display(Name = "UK", ResourceType = typeof(ViewRes.SharedStrings))]
+            UK = 1,
+            [Display(Name = "China", ResourceType = typeof(ViewRes.SharedStrings))]
+            ZH = 2
+        }
     public class CreateUserViewModel
     {
         [Required]
@@ -46,28 +45,30 @@ namespace MichellesWebsite.Models
 
         [Required]
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(Name = "Email", ResourceType = typeof(ViewRes.SharedStrings))]
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessageResourceType = typeof(ViewRes.SharedStrings), MinimumLength = 6,
+                      ErrorMessageResourceName = "PasswordError")]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Password", ResourceType = typeof(ViewRes.SharedStrings))]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Display(Name = "ConfirmPassword", ResourceType = typeof(ViewRes.SharedStrings))]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessageResourceType = typeof(ViewRes.SharedStrings),
+                      ErrorMessageResourceName = "ConfirmPasswordError")]
         public string ConfirmPassword { get; set; }
 
         [Required]
-        [Display(Name = "Full name")]
+        [Display(Name = "FullName", ResourceType = typeof(ViewRes.SharedStrings))]
         public string FullName { get; set; }
     }
     public class ExternalLoginConfirmationViewModel
     {
         [Required]
-        [Display(Name = "Email")]
+        [Display(Name = "Email", ResourceType = typeof(ViewRes.SharedStrings))]
         public string Email { get; set; }
     }
 
@@ -148,6 +149,11 @@ namespace MichellesWebsite.Models
         [Required]
         [Display(Name = "FullName", ResourceType = typeof(ViewRes.SharedStrings))]
         public string FullName { get; set; }
+
+        [Required]
+        [Phone]
+        [Display(Name = "TelephoneNumber", ResourceType = typeof(ViewRes.SharedStrings))]
+        public string Number { get; set; }
 
         [Required]
         public Address address { get; set; }

@@ -16,7 +16,9 @@ namespace MichellesWebsite.Models
         public virtual Enquiry Enquiry { get; set; }
         [Required(ErrorMessageResourceType = typeof(ViewRes.SharedStrings),
                       ErrorMessageResourceName = "EnquiryError")]
+        [Display(Name = "Message", ResourceType = typeof(ViewRes.SharedStrings))]
         public string message { get; set; }
+        [Display(Name = "Timestamp", ResourceType = typeof(ViewRes.SharedStrings))]
         public DateTime ts { get; set; }
         // true is yes, false is no
         public bool FromCustomer { get; set; }
@@ -37,26 +39,36 @@ namespace MichellesWebsite.Models
         [StringLength(128)]
         public string CustomerId { get; set; }
         [Required]
+        [Display(Name = "QueryType", ResourceType = typeof(ViewRes.SharedStrings))]
         public QueryType queryType { get; set; }
+        [Display(Name = "Timestamp", ResourceType = typeof(ViewRes.SharedStrings))]
         public DateTime ts { get; set; }
     }
     public class ContactView
     {
         public int EnquiryId { get; set; }
+        [Display(Name = "QueryType", ResourceType = typeof(ViewRes.SharedStrings))]
         public QueryType queryType { get; set; }
+        [Required(ErrorMessageResourceType = typeof(ViewRes.SharedStrings),
+                      ErrorMessageResourceName = "EnquiryError")]
+        [Display(Name = "Message", ResourceType = typeof(ViewRes.SharedStrings))]
         public string message { get; set; }
+        [Display(Name = "Timestamp", ResourceType = typeof(ViewRes.SharedStrings))]
         public DateTime ts { get; set; }
     }
     public class EnquiryListView
     {
         public int EnquiryId { get; set; }
         public ApplicationUser user { get; set; }
+        [Display(Name = "QueryType", ResourceType = typeof(ViewRes.SharedStrings))]
         public QueryType queryType { get; set; }
         public string message { get; set; }
+        [Display(Name = "Timestamp", ResourceType = typeof(ViewRes.SharedStrings))]
         public DateTime ts { get; set; }
     }
     public class ContactListView
     {
+        [Display(Name = "QueryType", ResourceType = typeof(ViewRes.SharedStrings))]
         public QueryType queryType { get; set; }
         public List<Contact> messages { get; set; }
     }

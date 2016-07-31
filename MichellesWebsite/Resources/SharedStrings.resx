@@ -123,6 +123,9 @@
   <data name="Address2" xml:space="preserve">
     <value>Second line</value>
   </data>
+  <data name="China" xml:space="preserve">
+    <value>Republic of China</value>
+  </data>
   <data name="City" xml:space="preserve">
     <value>Town/City</value>
   </data>
@@ -134,6 +137,12 @@
   </data>
   <data name="Country" xml:space="preserve">
     <value>Country</value>
+  </data>
+  <data name="DateFrom" xml:space="preserve">
+    <value>Date from</value>
+  </data>
+  <data name="DateTo" xml:space="preserve">
+    <value>Date to</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>Email</value>
@@ -180,6 +189,9 @@
   <data name="MainSubtitle" xml:space="preserve">
     <value>Selling health products since 2011</value>
   </data>
+  <data name="Message" xml:space="preserve">
+    <value>Message</value>
+  </data>
   <data name="NavBarAbout" xml:space="preserve">
     <value>About</value>
   </data>
@@ -201,6 +213,9 @@
   <data name="NavBarWelcome" xml:space="preserve">
     <value>Hello</value>
   </data>
+  <data name="OldPassword" xml:space="preserve">
+    <value>Previous password</value>
+  </data>
   <data name="OrderQuery" xml:space="preserve">
     <value>Order Query</value>
   </data>
@@ -212,6 +227,9 @@
   </data>
   <data name="Postcode" xml:space="preserve">
     <value>Postcode</value>
+  </data>
+  <data name="ProductQuantity" xml:space="preserve">
+    <value>Quantity</value>
   </data>
   <data name="ProductQuery" xml:space="preserve">
     <value>Product Query</value>
@@ -249,8 +267,14 @@
   <data name="RememberMe" xml:space="preserve">
     <value>Remember me?</value>
   </data>
+  <data name="SaleAmount" xml:space="preserve">
+    <value>Total amount</value>
+  </data>
   <data name="SaleCancelled" xml:space="preserve">
     <value>Cancelled</value>
+  </data>
+  <data name="SaleDetails" xml:space="preserve">
+    <value>Sale details</value>
   </data>
   <data name="SaleDispatched" xml:space="preserve">
     <value>Dispatched</value>
@@ -273,10 +297,19 @@
   <data name="SaleProcessing" xml:space="preserve">
     <value>Processing</value>
   </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Stock" xml:space="preserve">
+    <value>Stock</value>
+  </data>
   <data name="TelephoneNumber" xml:space="preserve">
     <value>Phone number</value>
   </data>
   <data name="Timestamp" xml:space="preserve">
     <value>Created date</value>
+  </data>
+  <data name="UK" xml:space="preserve">
+    <value>United Kingdom</value>
   </data>
 </root>

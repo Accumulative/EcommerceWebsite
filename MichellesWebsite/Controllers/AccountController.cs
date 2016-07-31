@@ -230,7 +230,7 @@ namespace MichellesWebsite.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FullName = model.FullName };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FullName = model.FullName, PhoneNumber = model.Number };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 model.address.userId = user.Id;
                 db.Addresses.Add(model.address);

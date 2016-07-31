@@ -166,28 +166,28 @@ namespace MichellesWebsite.Controllers
             }
 
             List<ProductPrice> productPrices = db.ProductPrices.Where(x => x.productID == id).OrderByDescending(x => x.dateFrom).Take(10).ToList();
-            ViewBag.productId = id;
-            return View(productPrices);
+            int productId = id ?? 0;
+            return View(new ProductPriceView() { productPrices = productPrices, newProductPrice = new ProductPrice() { productID = productId } });
         }
         [HttpPost]
-        public ActionResult UpdatePrice(int productID, decimal price)
+        public ActionResult UpdatePrice(ProductPriceView productPriceview)
         {
-            List<ProductPrice> productPrices = db.ProductPrices.Where(x => x.productID == productID).ToList();
-           
-            
+            List<ProductPrice> productPrices = db.ProductPrices.Where(x => x.productID == productPriceview.newProductPrice.productID).ToList();
+
             foreach(ProductPrice pp in productPrices)
             {
-                if (pp.dateTo == null)
+                if (pp.dateTo == null && pp.country == productPriceview.newProductPrice.country)
                 {
-                    pp.dateTo = DateTime.UtcNow;
-                    //db.Entry(pp).State = EntityState.Modified;
-                    //db.SaveChanges();
+                    ProductPrice oldProductPrice = pp;
+                    oldProductPrice.dateTo = DateTime.UtcNow;
+                    db.Entry(oldProductPrice).State = EntityState.Modified;
+                    db.SaveChanges();
                 }
             }
-            ProductPrice newProductPrice = new ProductPrice() { price = price, dateFrom = DateTime.UtcNow, productID = productID };
+            ProductPrice newProductPrice = new ProductPrice() { price = productPriceview.newProductPrice.price, dateFrom = DateTime.UtcNow, productID = productPriceview.newProductPrice.productID, country = productPriceview.newProductPrice.country};
             db.ProductPrices.Add(newProductPrice);
             db.SaveChanges();
-            return RedirectToAction("UpdatePrice", new { id = productID } );
+            return RedirectToAction("UpdatePrice", new { id = productPriceview.newProductPrice.productID } );
         }
 
         // GET: ProductModels/Delete/5

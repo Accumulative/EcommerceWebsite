@@ -20,16 +20,16 @@ namespace MichellesWebsite.Controllers
         // GET: ViewProduct
         public ActionResult Index()
         {
-           
+            string culture = Request.Cookies["_culture"].ToString();
             List<ProductModel> pl = db.ProductModels.ToList();
             List<ProductPrice> prices = db.ProductPrices.Where(x => x.dateTo == null).ToList();
             IEnumerable<ProductViewModel> products = pl.Select(x => new ProductViewModel
             {
-                name = x.name,
-                description = x.description,
+                name = culture == "en" ? x.name : x.zhName,
+                description = culture=="en"?x.description:x.zhDescription,
                 picture = x.picture,
                 ID = x.ID,
-                price = prices.Single(y => y.productID == x.ID).price,
+                price = prices.Single(y => y.productID == x.ID && y.country == Country.UK).price,
                 quantity = 0
             });
             return View(products);
@@ -38,10 +38,11 @@ namespace MichellesWebsite.Controllers
         [Authorize]
         public ActionResult PurchaseDetails(ProductViewModel product)
         {
+            string culture = Request.Cookies["_culture"].ToString();
             ProductModel productModel = db.ProductModels.Single(x => x.ID == product.ID);
             ApplicationCartItem itemToPurchase = new ApplicationCartItem();
             itemToPurchase.ProductId = product.ID;
-            itemToPurchase.Name = productModel.name;
+            itemToPurchase.Name = culture == "en"?productModel.name : productModel.zhName;
             itemToPurchase.Quantity = product.quantity;
             itemToPurchase.Price = product.price;
 
@@ -49,7 +50,7 @@ namespace MichellesWebsite.Controllers
                 {
                     Id = Guid.NewGuid(), // Unique purchase Id
                     Currency = "GBP",
-                    PurchaseDescription = product.name,
+                    PurchaseDescription = culture == "en" ? productModel.name : productModel.zhName,
                     Items = new List<ApplicationCartItem>()
                 };
                 cart.Items.Add(itemToPurchase);
@@ -87,14 +88,15 @@ namespace MichellesWebsite.Controllers
 
         public ActionResult Details(int productId)
         {
+            string culture = Request.Cookies["_culture"].ToString();
             ProductModel product = db.ProductModels.Single(x => x.ID == productId);
             ProductViewModel productView = new ProductViewModel
             {
-                name = product.name,
-                description = product.description,
+                name = culture == "en" ? product.name : product.zhName,
+                description = culture == "en" ? product.description : product.zhDescription,
                 picture = product.picture,
                 ID = product.ID,
-                price = db.ProductPrices.Where(x => x.dateTo == null).Single(y => y.productID == product.ID).price,
+                price = db.ProductPrices.Where(x => x.dateTo == null && x.country == Country.UK).Single(y => y.productID == product.ID).price,
                 quantity = 0
             };
             return View(productView);

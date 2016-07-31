@@ -51,18 +51,18 @@ namespace MichellesWebsite.Models
         [ForeignKey("ProductModel")]
         public int ProductId { get; set; }
         public virtual ProductModel ProductModel {get;set;}
+        [Display(Name = "ProductQuantity", ResourceType = typeof(ViewRes.SharedStrings))]
         public int Quantity { get; set; }
     }
     public class SaleViewModel
     {
         public Guid SaleId { get; set; }
-        [Display(Name ="Full name")]
-        public string FullName { get; set; }
-        [Display(Name = "Email")]
-        public string Email { get; set; }
+        public ApplicationUser User { get; set; }
+        [Display(Name = "Status", ResourceType = typeof(ViewRes.SharedStrings))]
         public Status status { get; set; }
+        [Display(Name = "SaleAmount", ResourceType = typeof(ViewRes.SharedStrings))]
         public decimal Amount { get; set; }
-        [Display(Name ="Time stamp")]
+        [Display(Name = "Timestamp", ResourceType = typeof(ViewRes.SharedStrings))]
         public DateTime TimeStamp { get; set; }
     }
     public class SaleDetailsModel

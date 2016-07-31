@@ -70,16 +70,6 @@
                     <li>@Html.ActionLink(ViewRes.SharedStrings.NavBarProducts, "Index", "ViewProduct")</li>
                     <li>@Html.ActionLink(ViewRes.SharedStrings.NavBarAbout, "About", "Home")</li>
                     <li>@Html.ActionLink(ViewRes.SharedStrings.NavBarContact, "Create", "Contacts")</li>
-                    <li>
-                        <a href="@Url.Action("SetCulture", "Home", new { culture = "zh-CN" },null)">
-                            <img src="@Url.Content("~/Images/chineseflag.jpg")", width="20" />
-                        </a>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("SetCulture", "Home", new { culture = "en" },null)">
-                            <img src="@Url.Content("~/Images/Ukflag.png")", width="20"  />
-                        </a>
-                    </li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

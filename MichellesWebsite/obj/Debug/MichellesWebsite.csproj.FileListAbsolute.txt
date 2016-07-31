@@ -135,3 +135,4 @@ D:\Programming\c# projects\MichellesWebsite\MichellesWebsite\obj\Debug\Michelles
 D:\Programming\c# projects\MichellesWebsite\MichellesWebsite\bin\zh-CN\MichellesWebsite.resources.dll
 D:\Programming\c# projects\MichellesWebsite\MichellesWebsite\obj\Debug\MichellesWebsite.Resources.SharedStrings.zh-CN.resources
 D:\Programming\c# projects\MichellesWebsite\MichellesWebsite\obj\Debug\zh-CN\MichellesWebsite.resources.dll
+D:\Programming\c# projects\MichellesWebsite\MichellesWebsite\obj\Debug\MichellesWebsite.Migrations.ChineseVersion.resources
