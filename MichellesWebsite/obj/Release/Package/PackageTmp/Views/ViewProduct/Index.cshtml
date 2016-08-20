@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<MichellesWebsite.Models.ProductViewModel>
 
 @{
-    ViewBag.Title = "Products";
+    ViewBag.Title = ViewRes.SharedStrings.NavBarProducts;
 }
 
-<h2>Index</h2>
+<h2>@ViewRes.SharedStrings.NavBarProducts</h2>
 
 <table class="table">
     <tr>
@@ -21,7 +21,7 @@
             @Html.DisplayNameFor(x => x.price)
         </th>
         <th>
-            Options
+            @ViewRes.SharedStrings.ProductsOptions
         </th>
     </tr>
 

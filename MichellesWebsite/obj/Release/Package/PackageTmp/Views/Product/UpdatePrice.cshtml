@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MichellesWebsite.Models.ProductPrice>
+﻿@model MichellesWebsite.Models.ProductPriceView
 
 @{
     ViewBag.Title = "Update Price";
@@ -15,13 +15,20 @@
         <h4>Update Price</h4>
         <hr />
 
-        @Html.Hidden("productId", (int)ViewBag.productId);
+        @Html.HiddenFor(model => model.newProductPrice.productID);
 
         <div class="form-group">
-            @Html.Label("Price: ", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.newProductPrice.price, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.Editor("price", new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessage("Please enter a price!", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.newProductPrice.price, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.newProductPrice.price, "",new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.newProductPrice.country, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EnumDropDownListFor(model => model.newProductPrice.country, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.newProductPrice.country, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -35,18 +42,20 @@
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.dateFrom)
+                @Html.DisplayNameFor(model => model.productPrices[0].dateFrom)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.dateTo)
+                @Html.DisplayNameFor(model => model.productPrices[0].dateTo)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.price)
+                @Html.DisplayNameFor(model => model.productPrices[0].price)
             </th>
-            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.productPrices[0].country)
+            </th>
         </tr>
 
-        @foreach (var item in Model)
+        @foreach (var item in Model.productPrices)
         {
             <tr>
                 <td>
@@ -57,6 +66,9 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.country)
                 </td>
             </tr>
         }

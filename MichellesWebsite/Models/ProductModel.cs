@@ -39,7 +39,7 @@ namespace MichellesWebsite.Models
         public string picture { get; set; }
         [Display(Name = "ProductsPrice", ResourceType = typeof(ViewRes.SharedStrings))]
         public decimal price { get; set; }
-        [Display(Name = "ProductsOptions", ResourceType = typeof(ViewRes.SharedStrings))]
+        [Display(Name = "ProductQuantity", ResourceType = typeof(ViewRes.SharedStrings))]
         public int quantity { get; set; }
     }
     public class StockTransaction

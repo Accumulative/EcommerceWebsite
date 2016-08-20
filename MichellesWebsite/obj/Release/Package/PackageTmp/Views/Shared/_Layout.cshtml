@@ -66,10 +66,10 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Products", "Index", "ViewProduct")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Create", "Contacts")</li>
+                    <li>@Html.ActionLink(ViewRes.SharedStrings.NavBarHome, "Index", "Home")</li>
+                    <li>@Html.ActionLink(ViewRes.SharedStrings.NavBarProducts, "Index", "ViewProduct")</li>
+                    <li>@Html.ActionLink(ViewRes.SharedStrings.NavBarAbout, "About", "Home")</li>
+                    <li>@Html.ActionLink(ViewRes.SharedStrings.NavBarContact, "Create", "Contacts")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

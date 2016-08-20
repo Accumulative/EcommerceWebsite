@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using MichellesWebsite.Models;
 using System.Web.Security;
 using Microsoft.AspNet.Identity;
+using System.Globalization;
 
 namespace MichellesWebsite.Controllers
 {
@@ -20,16 +21,16 @@ namespace MichellesWebsite.Controllers
         // GET: ViewProduct
         public ActionResult Index()
         {
-            string culture = Request.Cookies["_culture"].ToString();
+            string culture = CultureInfo.CurrentCulture.Name;
             List<ProductModel> pl = db.ProductModels.ToList();
-            List<ProductPrice> prices = db.ProductPrices.Where(x => x.dateTo == null).ToList();
+            List<ProductPrice> prices = db.ProductPrices.Where(x => x.dateTo == null && x.country == Country.UK).ToList();
             IEnumerable<ProductViewModel> products = pl.Select(x => new ProductViewModel
             {
                 name = culture == "en" ? x.name : x.zhName,
                 description = culture=="en"?x.description:x.zhDescription,
                 picture = x.picture,
                 ID = x.ID,
-                price = prices.Single(y => y.productID == x.ID && y.country == Country.UK).price,
+                price = prices.Single(y => y.productID == x.ID).price,
                 quantity = 0
             });
             return View(products);
@@ -38,7 +39,7 @@ namespace MichellesWebsite.Controllers
         [Authorize]
         public ActionResult PurchaseDetails(ProductViewModel product)
         {
-            string culture = Request.Cookies["_culture"].ToString();
+            string culture = CultureInfo.CurrentCulture.Name;
             ProductModel productModel = db.ProductModels.Single(x => x.ID == product.ID);
             ApplicationCartItem itemToPurchase = new ApplicationCartItem();
             itemToPurchase.ProductId = product.ID;
@@ -88,7 +89,7 @@ namespace MichellesWebsite.Controllers
 
         public ActionResult Details(int productId)
         {
-            string culture = Request.Cookies["_culture"].ToString();
+            string culture = CultureInfo.CurrentCulture.Name;
             ProductModel product = db.ProductModels.Single(x => x.ID == productId);
             ProductViewModel productView = new ProductViewModel
             {
