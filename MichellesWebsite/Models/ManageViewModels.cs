@@ -27,15 +27,18 @@ namespace MichellesWebsite.Models
 
     public class SetPasswordViewModel
     {
+        public string email { get; set; }
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessageResourceType = typeof(ViewRes.SharedStrings), MinimumLength = 6,
+                      ErrorMessageResourceName = "PasswordError")]
         [DataType(DataType.Password)]
-        [Display(Name = "New password")]
+        [Display(Name = "Password", ResourceType = typeof(ViewRes.SharedStrings))]
         public string NewPassword { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm new password")]
-        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+        [Display(Name = "ConfirmPassword", ResourceType = typeof(ViewRes.SharedStrings))]
+        [System.ComponentModel.DataAnnotations.Compare("NewPassword", ErrorMessageResourceType = typeof(ViewRes.SharedStrings),
+                      ErrorMessageResourceName = "ConfirmPasswordError")]
         public string ConfirmPassword { get; set; }
     }
 
@@ -43,18 +46,20 @@ namespace MichellesWebsite.Models
     {
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Current password")]
+        [Display(Name = "OldPassword", ResourceType = typeof(ViewRes.SharedStrings))]
         public string OldPassword { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessageResourceType = typeof(ViewRes.SharedStrings), MinimumLength = 6,
+                      ErrorMessageResourceName = "PasswordError")]
         [DataType(DataType.Password)]
-        [Display(Name = "New password")]
+        [Display(Name = "Password", ResourceType = typeof(ViewRes.SharedStrings))]
         public string NewPassword { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm new password")]
-        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+        [Display(Name = "ConfirmPassword", ResourceType = typeof(ViewRes.SharedStrings))]
+        [System.ComponentModel.DataAnnotations.Compare("NewPassword", ErrorMessageResourceType = typeof(ViewRes.SharedStrings),
+                      ErrorMessageResourceName = "ConfirmPasswordError")]
         public string ConfirmPassword { get; set; }
     }
 
@@ -62,7 +67,7 @@ namespace MichellesWebsite.Models
     {
         [Required]
         [Phone]
-        [Display(Name = "Phone Number")]
+        [Display(Name = "TelephoneNumber", ResourceType = typeof(ViewRes.SharedStrings))]
         public string Number { get; set; }
     }
 
@@ -74,7 +79,7 @@ namespace MichellesWebsite.Models
 
         [Required]
         [Phone]
-        [Display(Name = "Phone Number")]
+        [Display(Name = "TelephoneNumber", ResourceType = typeof(ViewRes.SharedStrings))]
         public string PhoneNumber { get; set; }
     }
 

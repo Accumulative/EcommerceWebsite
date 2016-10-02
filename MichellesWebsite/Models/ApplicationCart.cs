@@ -15,12 +15,36 @@ namespace MichellesWebsite.Models
         public List<ApplicationCartItem> Items { get; set; }
         public int Address { get; set; }
         private decimal totalPrice { get; set; }
+        public decimal deliveryPrice { get; set; }
         public string SaleId { get; set; }
-        public decimal TotalPrice 
+        private int weight { get; set; }
+
+        public ApplicationCart()
+        {
+            Items = new List<ApplicationCartItem>();
+        }
+
+        public int Weight
         {
             get
             {
                 if (Items == null)
+                    return weight;
+                else
+                    return this.Items.Sum(x => x.Quantity);
+            }
+            set
+            {
+                // We are enabling the setting of the TotalPrice to allow for single object purchases (no cart items required)
+                this.weight = value;
+            }
+        }
+
+        public decimal TotalPrice 
+        {
+            get
+            {
+                if (totalPrice != 0 || this.Items.Count() == 0)
                     return totalPrice;
                 else
                     return this.Items.Sum(x => x.Quantity * x.Price);
@@ -29,6 +53,14 @@ namespace MichellesWebsite.Models
             {
                 // We are enabling the setting of the TotalPrice to allow for single object purchases (no cart items required)
                 this.totalPrice = value;
+            }
+        }
+
+        public decimal SumCart
+        {
+            get
+            {
+                return this.Items.Sum(x => x.Quantity * x.Price);
             }
         }
     }

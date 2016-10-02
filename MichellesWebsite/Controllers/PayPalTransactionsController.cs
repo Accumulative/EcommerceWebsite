@@ -11,7 +11,7 @@ using MichellesWebsite.Models;
 namespace MichellesWebsite.Controllers
 {
     [Authorize(Roles ="Administrator")]
-    public class PayPalTransactionsController : Controller
+    public class PayPalTransactionsController : BaseController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 

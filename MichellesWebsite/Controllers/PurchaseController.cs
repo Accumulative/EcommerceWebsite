@@ -9,15 +9,15 @@ using PayPalMvc;
 using PayPalMvc.Enums;
 using Microsoft.AspNet.Identity;
 
-namespace SampleMVC3WebApplication.Controllers
+namespace MichellesWebsite.Controllers
 {
-    public class PurchaseController : Controller
+    public class PurchaseController : BaseController
     {
         private static TransactionService transactionService = new TransactionService();
         private ApplicationDbContext db = new ApplicationDbContext();
         #region Set Express Checkout and Get Checkout Details
 
-        public ActionResult PayPalExpressCheckout(string Addresses)
+        public ActionResult PayPalExpressCheckout(string Addresses, string couponCode)
         {
             if (!String.IsNullOrEmpty(Addresses))
             {
@@ -34,30 +34,65 @@ namespace SampleMVC3WebApplication.Controllers
                         Guid saleId = Guid.NewGuid();
                         cart.SaleId = saleId.ToString();
                         Session["Cart"] = cart;
-
-                        // Initiate sale in database
                         
-                        db.SaleModels.Add(new SaleModel
+                        //Delivery
+                        Address ad = db.Addresses.Find(addressId);
+                        DeliveryModel dm = db.DeliveryModels.Where(x => x.stateId == ad.stateId).First();
+                        decimal cost = 0;
+                            int qty = cart.Weight;
+                            if (qty == 1) cost += dm.costWithin500;
+                            if (qty >= 2) cost += dm.costWithin1000;
+                            if (qty > 2) cost += dm.costPer1000 * (Math.Floor((decimal)(qty - 3) / 2) + 1);
+
+                        // Apply coupon
+                        List<CouponModel > coupons = db.CouponModels.Where(x => x.code == couponCode && x.startDate <= DateTime.Now && x.endDate >= DateTime.Now).ToList();
+                        CouponModel coupon = (coupons.Count > 0 ? coupons.First() : null);
+
+                        if(coupon != null)
+                        {
+                            cost = coupon.freeDelivery ? 0 : cost;
+                            foreach(ApplicationCartItem ac in cart.Items)
+                            {
+                                ac.Price = Math.Round(ac.Price * (1 - coupon.discount),2);
+                                
+                            }
+                        }
+                        cart.deliveryPrice = Math.Round(cost,2);
+                        cart.TotalPrice = cart.SumCart;
+                        string culture = CultureHelper.GetCurrentCulture();
+                        WebUILogging.LogMessage(CultureHelper.GetCurrentCulture());
+                        // Initiate sale in database
+                        SaleModel sl = new SaleModel
                         {
                             SaleId = saleId,
                             AddressId = cart.Address,
-                            Amount = cart.TotalPrice,
+                            Amount = cart.TotalPrice + cart.deliveryPrice,
                             CustomerId = User.Identity.GetUserId(),
                             ts = DateTime.UtcNow,
                             Products = cart.Items.Select(x => new SaleProductModel
                             {
-                                PriceId = db.ProductPrices.Where(y => y.productID == x.ProductId).Single(y => y.dateTo == null).ID,
+                                PriceId = db.ProductPrices.Where(y => y.productID == x.ProductId && y.country == (culture == "en" ? Country.UK : Country.ZH)).Single(y => y.dateTo == null).ID,
                                 ProductId = x.ProductId,
                                 Quantity = x.Quantity
                             }).ToList(),
-                            status = Status.Ordering
-                        });
+                            status = Status.Ordering,
+                            DeliveryCostId = dm.id
+                        };
+                        if( coupon != null)
+                        {
+                            sl.couponId = coupon.id;
+                        }
+                        else
+                        {
+                            sl.couponId = 2;
+                        };
+
+                        db.SaleModels.Add(sl);
                         db.SaveChanges();
                         
 
                         string serverURL = HttpContext.Request.Url.GetLeftPart(UriPartial.Authority) + VirtualPathUtility.ToAbsolute("~/");
-
-                        SetExpressCheckoutResponse transactionResponse = transactionService.SendPayPalSetExpressCheckoutRequest(cart, serverURL);
+                        SetExpressCheckoutResponse transactionResponse = transactionService.SendPayPalSetExpressCheckoutRequest(cart, serverURL, ad);
                         // If Success redirect to PayPal for user to make payment
                         if (transactionResponse == null || transactionResponse.ResponseStatus != PayPalMvc.Enums.ResponseType.Success)
                         {
@@ -169,9 +204,9 @@ namespace SampleMVC3WebApplication.Controllers
             ApplicationCart cart = (ApplicationCart)Session["Cart"];
             ViewBag.TrackingReference = cart.Id;
             ViewBag.Description = cart.PurchaseDescription;
-            ViewBag.TotalCost = cart.TotalPrice;
+            ViewBag.TotalCost = cart.TotalPrice+cart.deliveryPrice;
             ViewBag.Currency = cart.Currency;
-            
+            Session["Cart"] = new ApplicationCart();
             return View();
         }
 
@@ -188,6 +223,7 @@ namespace SampleMVC3WebApplication.Controllers
             SaleModel sale = db.SaleModels.Single(x => x.SaleId.ToString() == cart.SaleId);
             sale.status = Status.Cancelled;
             db.SaveChanges();
+            Session["Cart"] = new ApplicationCart();
             return View();
         }
 

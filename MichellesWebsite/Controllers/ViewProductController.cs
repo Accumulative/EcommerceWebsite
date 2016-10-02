@@ -9,60 +9,99 @@ using System.Web.Mvc;
 using MichellesWebsite.Models;
 using System.Web.Security;
 using Microsoft.AspNet.Identity;
+using System.Globalization;
+using System.Web.Services;
 
 namespace MichellesWebsite.Controllers
 {
     
-    public class ViewProductController : Controller
+    public class ViewProductController : BaseController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: ViewProduct
-        public ActionResult Index()
+        public ActionResult Index(string SearchTerm)
         {
-           
+            ViewBag.SearchTerm = SearchTerm;
+            
+            string culture = CultureInfo.CurrentCulture.Name;
             List<ProductModel> pl = db.ProductModels.ToList();
-            List<ProductPrice> prices = db.ProductPrices.Where(x => x.dateTo == null).ToList();
+            List<ProductPrice> prices = db.ProductPrices.Where(x => x.dateTo == null && x.country == (culture == "en" ? Country.UK : Country.ZH)).ToList();
             IEnumerable<ProductViewModel> products = pl.Select(x => new ProductViewModel
             {
-                name = x.name,
-                description = x.description,
+                name = culture == "en" ? x.name : x.zhName,
+                description = culture=="en"?x.description:x.zhDescription,
                 picture = x.picture,
                 ID = x.ID,
                 price = prices.Single(y => y.productID == x.ID).price,
                 quantity = 0
             });
+
+            if (culture == "en")
+                ViewBag.Currency = "GBP";
+            else
+                ViewBag.Currency = "RMB";
+
+            if (!String.IsNullOrEmpty(SearchTerm))
+                return View(products.Where(x => x.name.ToLower().Contains(SearchTerm.ToLower())).ToList());
             return View(products);
         }
-        [HttpPost]
-        [Authorize]
-        public ActionResult PurchaseDetails(ProductViewModel product)
+        public ActionResult AddToBasket(ProductViewModel prod)
         {
-            ProductModel productModel = db.ProductModels.Single(x => x.ID == product.ID);
-            ApplicationCartItem itemToPurchase = new ApplicationCartItem();
-            itemToPurchase.ProductId = product.ID;
-            itemToPurchase.Name = productModel.name;
-            itemToPurchase.Quantity = product.quantity;
-            itemToPurchase.Price = product.price;
+            if( Session["Cart"] == null)
+            {
+                Session["Cart"] = new ApplicationCart();
+            }
+            if (db.ProductModels.Find(prod.ID).stock >= prod.quantity)
+            {
+                ApplicationCart cart = (ApplicationCart)Session["Cart"];
+                cart.Items.Add(new ApplicationCartItem() { ProductId = prod.ID, Quantity = prod.quantity });
+                Session["Cart"] = cart;
+                ViewBag.Message = "Product successfully added to basket.";
+                return View();
+            }
+            ViewBag.Message = "Sorry, not enough of that product in stock.";
+            return View();
+        }
+        [Authorize]
+        public ActionResult PurchaseDetails()
+        {
+            string culture = CultureInfo.CurrentCulture.Name;
+            ApplicationCart cart = new ApplicationCart();
+            if (Session["Cart"] != null)
+            {
+                cart = (ApplicationCart)Session["Cart"];
+                List<ProductModel> pms = db.ProductModels.ToList();
+                
+                List<ProductPrice> prices = db.ProductPrices.Where(x => x.dateTo == null && x.country == (culture == "en" ? Country.UK : Country.ZH)).ToList();
 
-                ApplicationCart cart = new ApplicationCart
+                ApplicationCart cartNew = new ApplicationCart()
                 {
                     Id = Guid.NewGuid(), // Unique purchase Id
-                    Currency = "GBP",
-                    PurchaseDescription = product.name,
-                    Items = new List<ApplicationCartItem>()
+                    Items = cart.Items.Select(x => new ApplicationCartItem()
+                    {
+                        ProductId = x.ProductId,
+                        Name = culture == "en" ? pms.Single(y => y.ID == x.ProductId).name : pms.Single(y => y.ID == x.ProductId).zhName,
+                        Quantity = x.Quantity,
+                        Weight = pms.Single(y => y.ID == x.ProductId).weight,
+                        Price = prices.Single(y => y.productID == x.ProductId).price
+                    }).ToList(),
+                    PurchaseDescription = DateTime.Now.ToString(),
+                    Currency = culture == "en" ? "GBP" : "RMB"
                 };
-                cart.Items.Add(itemToPurchase);
 
                 // Storing this in session, you might want to store in it a database
-                Session["Cart"] = cart;
+                Session["Cart"] = cartNew;
+                cart = cartNew;
+                
+            };
             string userId = User.Identity.GetUserId();
-            ViewBag.Addresses = db.Addresses.Where(x => x.userId == userId).Select(x => new SelectListItem
+            ViewBag.Addresses = db.Addresses.Where(x => x.userId == userId && x.country == (culture == "en" ? Country.UK : Country.ZH)).Select(x => new SelectListItem
             {
                 Text = x.firstLine + " " + x.secondLine + " " + x.city + " " + x.postcode + "...",
                 Value = x.id.ToString()
             });
-                return View(cart);
+            return View(cart);
         }
         /*[HttpPost]
         public ActionResult PurchaseDetails(SaleModel sale)
@@ -87,16 +126,22 @@ namespace MichellesWebsite.Controllers
 
         public ActionResult Details(int productId)
         {
+            string culture = CultureInfo.CurrentCulture.Name;
             ProductModel product = db.ProductModels.Single(x => x.ID == productId);
             ProductViewModel productView = new ProductViewModel
             {
-                name = product.name,
-                description = product.description,
+                name = culture == "en" ? product.name : product.zhName,
+                description = culture == "en" ? product.description : product.zhDescription,
                 picture = product.picture,
                 ID = product.ID,
-                price = db.ProductPrices.Where(x => x.dateTo == null).Single(y => y.productID == product.ID).price,
+                price = db.ProductPrices.Where(x => x.dateTo == null && x.country == (culture == "en" ? Country.UK : Country.ZH)).Single(y => y.productID == product.ID).price,
                 quantity = 0
             };
+            if (culture == "en")
+                ViewBag.Currency = "GBP";
+            else
+                ViewBag.Currency = "RMB";
+
             return View(productView);
         }
 

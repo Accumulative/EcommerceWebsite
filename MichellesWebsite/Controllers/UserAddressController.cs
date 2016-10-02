@@ -12,7 +12,7 @@ using Microsoft.AspNet.Identity;
 namespace MichellesWebsite.Controllers
 {
     [Authorize]
-    public class UserAddressController : Controller
+    public class UserAddressController : BaseController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
@@ -49,7 +49,7 @@ namespace MichellesWebsite.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,firstLine,secondLine,postcode,city,country")] Address address)
+        public ActionResult Create(Address address)
         {
             if (ModelState.IsValid)
             {
@@ -70,6 +70,7 @@ namespace MichellesWebsite.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Address address = db.Addresses.Find(id);
+            
             if (address == null)
             {
                 return HttpNotFound();
@@ -82,7 +83,7 @@ namespace MichellesWebsite.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "firstLine,secondLine,postcode,city,country")] Address address)
+        public ActionResult Edit(Address address)
         {
             if (ModelState.IsValid)
             {

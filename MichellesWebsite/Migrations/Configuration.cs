@@ -1,5 +1,8 @@
 namespace MichellesWebsite.Migrations
 {
+    using Models;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -26,6 +29,27 @@ namespace MichellesWebsite.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+            var db = new ApplicationDbContext();
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
+
+            if (!roleManager.RoleExists("Administrator"))
+            {
+                var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+                role.Name = "Administrator";
+                roleManager.CreateAsync(role);
+            };
+            if (!roleManager.RoleExists("User"))
+            {
+                var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+                role.Name = "User";
+                roleManager.CreateAsync(role);
+            };
+
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+            var adminUser = new ApplicationUser() { Email = "admin@malibrace.com", FullName = "Admin", UserName = "admin@malibrace.com" };
+            userManager.Create(adminUser, "malibrace123");
+            userManager.AddToRole(adminUser.Id, "Administrator");
+            
         }
     }
 }

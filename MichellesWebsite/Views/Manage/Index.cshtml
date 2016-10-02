@@ -31,6 +31,9 @@
         <dd>
             @Html.ActionLink("View Orders", "Orders", "SaleModels")
         </dd>
+        <dt>
+            Tickets:
+        </dt>
         <dd>
             @Html.ActionLink("View Tickets", "Enquiries", "Contacts")
         </dd>
@@ -58,6 +61,22 @@
             <dd>
                 @Html.ActionLink("View Products", "Index", "Product")
             </dd>
+            <dt>View Delivery costs: </dt>
+            <dd>
+                @Html.ActionLink("View Delivery costs", "Index", "DeliveryModels")
+            </dd>
+            <dt>View Coupons: </dt>
+            <dd>
+                @Html.ActionLink("View Coupons", "Index", "CouponModels")
+            </dd>
+            <dt>View States: </dt>
+            <dd>
+                @Html.ActionLink("View States", "Index", "States")
+            </dd>
+            <dt>View States: </dt>
+            <dd>
+                @Html.ActionLink("View Users", "Index", "ApplicationUsers")
+            </dd>
         }
 
 @*
@@ -73,7 +92,7 @@
             for details on setting up this ASP.NET application to support two-factor authentication using SMS.
 
          Uncomment the following block after you have set up two-factor authentication
-*@
+
           
             <dt>Phone Number:</dt>
             <dd>
@@ -90,7 +109,7 @@
                 }
                 ]
             </dd>
-        @*
+        
     <dt>Two-Factor Authentication:</dt>
     <dd>
         <p>

@@ -15,7 +15,9 @@
     {
         <li>Purchase Description: @Model.PurchaseDescription</li>
     }
-    <li>Total Price: @Model.TotalPrice @Model.Currency</li>
+    <li>Basket cost: @Model.TotalPrice @Model.Currency</li>
+    <li>Delivery cost: @Model.deliveryPrice @Model.Currency</li>
+    <li>Total cost: @(Model.TotalPrice+Model.deliveryPrice) @Model.Currency</li>
 </ul>
 
 @if (Model.Items != null)

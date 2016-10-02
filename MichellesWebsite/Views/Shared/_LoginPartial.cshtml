@@ -7,7 +7,23 @@
 
     <ul class="nav navbar-nav navbar-right">
         <li>
-            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            <a href="@Url.Action("SetCulture", "Home", new { culture = "zh-CN" },null)">
+                <img src="@Url.Content("~/Images/chineseflag.jpg")" , width="20" />
+            </a>
+        </li>
+        <li>
+            <a href="@Url.Action("SetCulture", "Home", new { culture = "en" },null)">
+                <img src="@Url.Content("~/Images/Ukflag.png")" , width="20" />
+            </a>
+        </li>
+        <li>
+            <a href="@Url.Action("PurchaseDetails", "ViewProduct", new { culture = "en" },null)">
+                Checkout
+                <img src="@Url.Content("~/Images/DeliveryBtn.png")" , width="20" />
+            </a>
+        </li>
+        <li>
+            @Html.ActionLink(ViewRes.SharedStrings.NavBarWelcome + " " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
         </li>
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
     </ul>
@@ -16,7 +32,18 @@
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+        <li>
+            <a href="@Url.Action("SetCulture", "Home", new { culture = "zh-CN" },null)">
+                <img src="@Url.Content("~/Images/chineseflag.jpg")" , width="20" />
+            </a>
+        </li>
+        <li>
+            <a href="@Url.Action("SetCulture", "Home", new { culture = "en" },null)">
+                <img src="@Url.Content("~/Images/Ukflag.png")" , width="20" />
+            </a>
+        </li>
+        
+        <li>@Html.ActionLink(ViewRes.SharedStrings.NavBarRegister, "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink(ViewRes.SharedStrings.NavBarLogin, "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     </ul>
 }

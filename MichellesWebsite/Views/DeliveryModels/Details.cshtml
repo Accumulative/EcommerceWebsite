@@ -1,0 +1,50 @@
+﻿@model MichellesWebsite.Models.DeliveryModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>DeliveryModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.State.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.State.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.costWithin500)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.costWithin500)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.costWithin1000)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.costWithin1000)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.costPer1000)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.costPer1000)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

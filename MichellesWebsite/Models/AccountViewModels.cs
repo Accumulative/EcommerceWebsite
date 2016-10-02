@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Web.Mvc;
 
 namespace MichellesWebsite.Models
@@ -14,29 +17,51 @@ namespace MichellesWebsite.Models
         [Key]
         public int id { get; set; }
         public string userId { get; set; }
+        
+        [Display(Name = "FullName", ResourceType = typeof(ViewRes.SharedStrings))]
         [Required]
-        [Display(Name = "First line")]
+        public string contactName { get; set; }
+        [Display(Name = "TelephoneNumber", ResourceType = typeof(ViewRes.SharedStrings))]
+        [Required]
+        public string phoneNumber { get; set; }
+        [Required]
+        [Display(Name = "Address1", ResourceType = typeof(ViewRes.SharedStrings))]
         public string firstLine { get; set; }
-        [Display(Name = "Second line")]
+        [Display(Name = "Address2", ResourceType = typeof(ViewRes.SharedStrings))]
         public string secondLine { get; set; }
         [Required]
-        [Display(Name = "Postcode")]
+        [Display(Name = "Postcode", ResourceType = typeof(ViewRes.SharedStrings))]
         public string postcode { get; set; }
-        [Display(Name ="Town/City")]
+        [Display(Name = "City", ResourceType = typeof(ViewRes.SharedStrings))]
         [Required]
         public string city { get; set; }
+
         [Required]
-        [Display(Name = "Country")]
+        [Range(1, int.MaxValue, ErrorMessage = "Select a country")]
+        [Display(Name = "Country", ResourceType = typeof(ViewRes.SharedStrings))]
         public Country country { get; set; }
-        
+
+        [Display(Name = "State", ResourceType = typeof(ViewRes.SharedStrings))]
+        [ForeignKey("State")]
+        public int? stateId { get; set; }
+        public virtual State State { get; set; }
+
     }
     public enum Country
     {
-        [Display(Name ="United Kingdom")]
+        [Display(Name = "UK", ResourceType = typeof(ViewRes.SharedStrings))]
         UK = 1,
-        [Display(Name = "Republic of China")]
+        [Display(Name = "China", ResourceType = typeof(ViewRes.SharedStrings))]
         ZH = 2
-
+    }
+    public class State
+    {
+        [Key]
+        public int id { get; set; }
+        public string name { get; set; }
+        public string zhName { get; set; }
+        public Country Country { get; set; }
+        public DateTime ts { get; set; }
     }
     public class CreateUserViewModel
     {
@@ -46,28 +71,30 @@ namespace MichellesWebsite.Models
 
         [Required]
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(Name = "Email", ResourceType = typeof(ViewRes.SharedStrings))]
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessageResourceType = typeof(ViewRes.SharedStrings), MinimumLength = 6,
+                      ErrorMessageResourceName = "PasswordError")]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Password", ResourceType = typeof(ViewRes.SharedStrings))]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Display(Name = "ConfirmPassword", ResourceType = typeof(ViewRes.SharedStrings))]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessageResourceType = typeof(ViewRes.SharedStrings),
+                      ErrorMessageResourceName = "ConfirmPasswordError")]
         public string ConfirmPassword { get; set; }
 
         [Required]
-        [Display(Name = "Full name")]
+        [Display(Name = "FullName", ResourceType = typeof(ViewRes.SharedStrings))]
         public string FullName { get; set; }
     }
     public class ExternalLoginConfirmationViewModel
     {
         [Required]
-        [Display(Name = "Email")]
+        [Display(Name = "Email", ResourceType = typeof(ViewRes.SharedStrings))]
         public string Email { get; set; }
     }
 
@@ -103,23 +130,25 @@ namespace MichellesWebsite.Models
     public class ForgotViewModel
     {
         [Required]
-        [Display(Name = "Email")]
+        [Display(Name = "Email", ResourceType = typeof(ViewRes.SharedStrings))]
         public string Email { get; set; }
     }
 
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Email")]
+        [Display(Name = "Email", ResourceType = typeof(ViewRes.SharedStrings))]
         [EmailAddress]
         public string Email { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [StringLength(100, ErrorMessageResourceType = typeof(ViewRes.SharedStrings), MinimumLength = 6,
+                      ErrorMessageResourceName = "PasswordError")]
+        [Display(Name = "Password", ResourceType = typeof(ViewRes.SharedStrings))]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
+        [Display(Name = "RememberMe", ResourceType = typeof(ViewRes.SharedStrings))]
         public bool RememberMe { get; set; }
     }
 
@@ -127,25 +156,31 @@ namespace MichellesWebsite.Models
     {
         [Required]
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(Name = "Email", ResourceType = typeof(ViewRes.SharedStrings))]
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessageResourceType = typeof(ViewRes.SharedStrings), MinimumLength = 6,
+                      ErrorMessageResourceName = "PasswordError")]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Password", ResourceType = typeof(ViewRes.SharedStrings))]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Display(Name = "ConfirmPassword", ResourceType = typeof(ViewRes.SharedStrings))]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessageResourceType = typeof(ViewRes.SharedStrings),
+                      ErrorMessageResourceName = "ConfirmPasswordError")]
         public string ConfirmPassword { get; set; }
 
         [Required]
-        [Display(Name = "Full name")]
+        [Display(Name = "FullName", ResourceType = typeof(ViewRes.SharedStrings))]
         public string FullName { get; set; }
 
         [Required]
+        [Phone]
+        [Display(Name = "TelephoneNumber", ResourceType = typeof(ViewRes.SharedStrings))]
+        public string Number { get; set; }
+
         public Address address { get; set; }
     }
 
@@ -153,18 +188,20 @@ namespace MichellesWebsite.Models
     {
         [Required]
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(Name = "Email", ResourceType = typeof(ViewRes.SharedStrings))]
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessageResourceType = typeof(ViewRes.SharedStrings), MinimumLength = 6,
+                      ErrorMessageResourceName = "PasswordError")]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Password", ResourceType = typeof(ViewRes.SharedStrings))]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Display(Name = "ConfirmPassword", ResourceType = typeof(ViewRes.SharedStrings))]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessageResourceType = typeof(ViewRes.SharedStrings),
+                      ErrorMessageResourceName = "ConfirmPasswordError")]
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }
@@ -174,7 +211,7 @@ namespace MichellesWebsite.Models
     {
         [Required]
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(Name = "Email", ResourceType = typeof(ViewRes.SharedStrings))]
         public string Email { get; set; }
     }
 }

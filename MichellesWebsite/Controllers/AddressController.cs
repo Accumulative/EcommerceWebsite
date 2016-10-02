@@ -11,7 +11,7 @@ using MichellesWebsite.Models;
 namespace MichellesWebsite.Controllers
 {
     [Authorize(Roles ="Administrator")]
-    public class AddressController : Controller
+    public class AddressController : BaseController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
@@ -47,7 +47,7 @@ namespace MichellesWebsite.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "firstLine,secondLine,postcode,city,country")] Address address)
+        public ActionResult Create(Address address)
         {
             if (ModelState.IsValid)
             {
@@ -79,7 +79,7 @@ namespace MichellesWebsite.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,firstLine,secondLine,postcode,city,country")] Address address)
+        public ActionResult Edit(Address address)
         {
             if (ModelState.IsValid)
             {

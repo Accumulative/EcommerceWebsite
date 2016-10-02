@@ -33,9 +33,10 @@ namespace PayPalMvc
 		}
 
         // See ITransactionRegistrar for parameter descriptions
-        public SetExpressCheckoutResponse SendSetExpressCheckout(string currencyCode, decimal amount, string description, string trackingReference, string serverURL, List<ExpressCheckoutItem> purchaseItems = null, string userEmail = null)
+        public SetExpressCheckoutResponse SendSetExpressCheckout(string currencyCode, decimal amount, decimal deliveryAmount, string description, string trackingReference, string serverURL, string fullName, string firstLine, string city, string postcode, string countrycode, List<ExpressCheckoutItem> purchaseItems = null, string userEmail = null, string state = null, string secondLine = null)
         {
-            SetExpressCheckoutRequest request = new SetExpressCheckoutRequest(currencyCode, amount, description, trackingReference, serverURL, purchaseItems, userEmail);
+
+            SetExpressCheckoutRequest request = new SetExpressCheckoutRequest(currencyCode, amount, deliveryAmount, description, trackingReference, serverURL,fullName,firstLine,city,postcode,countrycode, purchaseItems, userEmail, state,secondLine);
             
             string postData = serializer.Serialize(request);
             Logging.LogLongMessage("PayPal Send Request", "Serlialized Request to PayPal API: " + postData);

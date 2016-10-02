@@ -2,3 +2,8 @@ C:\Users\Kieran\Downloads\jhelmink-paypalexpresscheckoutmvc-3db03cd05fa1\jhelmin
 C:\Users\Kieran\Downloads\jhelmink-paypalexpresscheckoutmvc-3db03cd05fa1\jhelmink-paypalexpresscheckoutmvc-3db03cd05fa1\PayPalMvc\bin\Debug\PayPalMvc.pdb
 C:\Users\Kieran\Downloads\jhelmink-paypalexpresscheckoutmvc-3db03cd05fa1\jhelmink-paypalexpresscheckoutmvc-3db03cd05fa1\PayPalMvc\obj\Debug\PayPalMvc.dll
 C:\Users\Kieran\Downloads\jhelmink-paypalexpresscheckoutmvc-3db03cd05fa1\jhelmink-paypalexpresscheckoutmvc-3db03cd05fa1\PayPalMvc\obj\Debug\PayPalMvc.pdb
+D:\Programming\c# projects\MichellesWebsite\PayPalMvc\bin\Debug\PayPalMvc.dll
+D:\Programming\c# projects\MichellesWebsite\PayPalMvc\bin\Debug\PayPalMvc.pdb
+D:\Programming\c# projects\MichellesWebsite\PayPalMvc\obj\Debug\PayPalMvc.csprojResolveAssemblyReference.cache
+D:\Programming\c# projects\MichellesWebsite\PayPalMvc\obj\Debug\PayPalMvc.dll
+D:\Programming\c# projects\MichellesWebsite\PayPalMvc\obj\Debug\PayPalMvc.pdb

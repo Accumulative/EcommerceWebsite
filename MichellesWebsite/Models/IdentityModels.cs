@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.ComponentModel.DataAnnotations;
 
 namespace MichellesWebsite.Models
 {
@@ -16,7 +17,7 @@ namespace MichellesWebsite.Models
             // Add custom user claims here
             return userIdentity;
         }
-
+        [Display(Name = "FullName", ResourceType = typeof(ViewRes.SharedStrings))]
         public string FullName { get; set; }
     }
 
@@ -51,5 +52,13 @@ namespace MichellesWebsite.Models
         public System.Data.Entity.DbSet<MichellesWebsite.Models.Enquiry> Enquiries { get; set; }
 
         public System.Data.Entity.DbSet<MichellesWebsite.Models.StockTransaction> StockTransactions { get; set; }
+
+        public System.Data.Entity.DbSet<MichellesWebsite.Models.CultureCountry> CultureCountries { get; set; }
+
+        public System.Data.Entity.DbSet<MichellesWebsite.Models.DeliveryModel> DeliveryModels { get; set; }
+
+        public System.Data.Entity.DbSet<MichellesWebsite.Models.CouponModel> CouponModels { get; set; }
+
+        public System.Data.Entity.DbSet<MichellesWebsite.Models.State> States { get; set; }
     }
 }

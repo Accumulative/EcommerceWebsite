@@ -10,11 +10,13 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using MichellesWebsite.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Web.Mvc.Html;
+using System.Collections.Generic;
 
 namespace MichellesWebsite.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
@@ -23,7 +25,6 @@ namespace MichellesWebsite.Controllers
         public AccountController()
         {
         }
-
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
         {
             UserManager = userManager;
@@ -218,7 +219,10 @@ namespace MichellesWebsite.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            return View();
+            Address ad = new Address();
+            ad.contactName = "Default";
+            ad.phoneNumber = "000";
+            return View(new RegisterViewModel() { address = ad });
         }
 
         //
@@ -228,13 +232,16 @@ namespace MichellesWebsite.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            model.address.contactName = model.FullName;
+            model.address.phoneNumber = model.Number;
+            //var errors = ModelState.Values.SelectMany(v => v.Errors);
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FullName = model.FullName };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FullName = model.FullName, PhoneNumber = model.Number };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 model.address.userId = user.Id;
-                db.Addresses.Add(model.address);
-                db.SaveChanges();
+                
+                WebUILogging.LogMessage("Test 2");
                 if (result.Succeeded)
                 {
                     UserManager.AddToRole(user.Id, "User");
@@ -244,12 +251,13 @@ namespace MichellesWebsite.Controllers
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
+                    db.Addresses.Add(model.address);
+                    db.SaveChanges();
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
             }
-
+            WebUILogging.LogMessage("Test 1");
             // If we got this far, something failed, redisplay form
             return View(model);
         }

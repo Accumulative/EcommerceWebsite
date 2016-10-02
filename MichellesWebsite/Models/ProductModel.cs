@@ -16,28 +16,31 @@ namespace MichellesWebsite.Models
         public string name { get; set; }
         [Display(Name = "Description")]
         public string description { get; set; }
-        [Display(Name = "Product name (zh)")]
+        [Display(Name = "ProductsName", ResourceType = typeof(ViewRes.SharedStrings))]
         public string zhName { get; set; }
-        [Display(Name = "Description (zh)")]
+        [Display(Name = "ProductsDescription", ResourceType = typeof(ViewRes.SharedStrings))]
         public string zhDescription { get; set; }
-        [Display(Name = "Created")]
+        [Display(Name = "Timestamp", ResourceType = typeof(ViewRes.SharedStrings))]
         public DateTime ts { get; set; }
+        [Display(Name = "ProductsPicture", ResourceType = typeof(ViewRes.SharedStrings))]
         public string picture { get; set; }
+        [Display(Name = "Stock", ResourceType = typeof(ViewRes.SharedStrings))]
         [MinValue(0)]
         public int stock { get; set; }
+        public int weight { get; set; }
     }
     public class ProductViewModel
     {
         public int ID { get; set; }
-        [Display(Name = "Product name")]
+        [Display(Name = "ProductsName", ResourceType = typeof(ViewRes.SharedStrings))]
         public string name { get; set; }
-        [Display(Name = "Description")]
+        [Display(Name = "ProductsDescription", ResourceType = typeof(ViewRes.SharedStrings))]
         public string description { get; set; }
-        [Display(Name = "Picture")]
+        [Display(Name = "ProductsPicture", ResourceType = typeof(ViewRes.SharedStrings))]
         public string picture { get; set; }
-        [Display(Name = "Price")]
+        [Display(Name = "ProductsPrice", ResourceType = typeof(ViewRes.SharedStrings))]
         public decimal price { get; set; }
-        [Display(Name = "Quantity")]
+        [Display(Name = "ProductQuantity", ResourceType = typeof(ViewRes.SharedStrings))]
         public int quantity { get; set; }
     }
     public class StockTransaction

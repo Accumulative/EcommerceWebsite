@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace PayPalMvc {
 	public interface ITransactionRegistrar {
-        
+
         /// <summary>
         /// Setup the Express Checkout request with PayPal
         /// This sets up the sale for X value in Y currency against a sale description (with optional items)
@@ -16,7 +16,7 @@ namespace PayPalMvc {
         /// <param name="purchaseItems">Optional list of individual items being sold in the single payment transaction (note these are NOT stored by PayPal against the order)</param>
         /// <param name="userEmail">Optional email for user making purchase</param>
         /// <returns>SetExpressCheckoutResponse from PayPal</returns>
-        SetExpressCheckoutResponse SendSetExpressCheckout(string currencyCode, decimal amount, string description, string trackingReference, string serverURL, List<ExpressCheckoutItem> purchaseItems = null, string userEmail = null);
+        SetExpressCheckoutResponse SendSetExpressCheckout(string currencyCode, decimal amount, decimal deliveryAmount, string description, string trackingReference, string serverURL, string fullName, string firstLine, string city, string postcode, string countrycode, List<ExpressCheckoutItem> purchaseItems = null, string userEmail = null, string state = null, string secondLine = null);
 
         /// <summary>
         /// Get PayPal purchase status for the sale and the PayPal account details used for purchase

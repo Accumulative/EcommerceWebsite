@@ -2,15 +2,21 @@
     ViewBag.Title = "Home Page";
 }
 
-
+@using (Html.BeginForm("Index", "ViewProduct", FormMethod.Post))
+{
+    <div id="MainSearch" align="right">
+        <input type="text" name="SearchTerm" placeholder="Search products"/>
+        <input type="submit" value="Search" class="btn btn-default" />
+    </div>
+}
 
 <div class="jumbotron">
 	<div id="mainSec">
     <h1>MALIBRACE</h1>
     <h2> . . .@ViewRes.SharedStrings.MainSubtitle</h2>
     <br />
-    <p align="left">MALIBRACE sells HeiTang to anywhere within the UK and China. Please feel welcome to browser our products, and visit our social network sites!
-    <a href="http://asp.net" class="btn btn-primary btn-sm">Find out more -></a>
+    <p align="left">@ViewRes.SharedStrings.MainSubtext
+    <a href="@Url.Action("Index", "ViewProduct")" class="btn btn-primary btn-sm">@ViewRes.SharedStrings.ExploreBtn</a>
     </p>
     </div>
     <div id="mainPic" align="right">
@@ -21,22 +27,22 @@
 
 <div class="row">
     <div class="col-md-8">
-        <h2>Latest News</h2>
+        <h2>@ViewRes.SharedStrings.MainNews</h2>
         <div class="newsItem">
         <h3>Malibrace has just launched its website.</h3>
         <p>
             Please take some time to look around at our products!
         </p>
-        <p><a class="btn btn-default" href="@Url.Action("Index", "ViewProduct")">Take a look &raquo;</a></p>
+        <p><a class="btn btn-default" href="@Url.Action("Index", "ViewProduct")">@ViewRes.SharedStrings.ExploreBtn</a></p>
         </div>
     </div>
 
     <div class="col-md-4">
-    	<h2>Products</h2>
+    	<h2>@ViewRes.SharedStrings.MainProducts</h2>
     	<div class="newsItem">
         <h3>Red Date</h3>
         <p>Red Date helps menstrual pain, cold hands and feet, hair loss and blood flow. It helps recovery of bones, post birth health, womb contractions and increased milk secretion</p>
-        <p><a class="btn btn-default" href="@Url.Action("Index", "ViewProduct")">Take a look &raquo;</a></p>
+        <p><a class="btn btn-default" href="@Url.Action("Index", "ViewProduct")">@ViewRes.SharedStrings.ExploreBtn</a></p>
         </div>
     </div>
 </div>
@@ -48,14 +54,14 @@
         <p>
             Please check back for regular developments, and report any problems that you may come across.
         </p>
-        <p><a class="btn btn-default" href="@Url.Action("Index", "ViewProduct")">Take a look &raquo;</a></p>
+        <p><a class="btn btn-default" href="@Url.Action("Index", "ViewProduct")">@ViewRes.SharedStrings.ExploreBtn</a></p>
         </div>
     </div>
     <div class="col-md-4">
     <div class="newsItem">
         <h3>Rose sugar</h3>
         <p>Rose sugar helps menstrual pain, cold hands and feet, hair loss and blood flow. It helps recovery of bones, post birth health, womb contractions and increased milk secretion.</p>
-        <p><a class="btn btn-default" href="@Url.Action("Index", "ViewProduct")">Take a look &raquo;</a></p>
+        <p><a class="btn btn-default" href="@Url.Action("Index", "ViewProduct")">@ViewRes.SharedStrings.ExploreBtn</a></p>
     </div>
     </div>
 </div>

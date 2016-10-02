@@ -13,7 +13,7 @@ using Microsoft.AspNet.Identity;
 namespace MichellesWebsite.Controllers
 {
     
-    public class SaleModelsController : Controller
+    public class SaleModelsController : BaseController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
@@ -26,8 +26,7 @@ namespace MichellesWebsite.Controllers
             List<SaleViewModel> saleViewModels = saleModels.Select(x => new SaleViewModel
             {
                 Amount = x.Amount,
-                Email = users.Single(y => y.Id == x.CustomerId).Email,
-                FullName = users.Single(y => y.Id == x.CustomerId).FullName,
+                User = users.Single(y => y.Id == x.CustomerId),
                 SaleId = x.SaleId,
                 status = x.status,
                 TimeStamp = x.ts
@@ -60,8 +59,7 @@ namespace MichellesWebsite.Controllers
             List<SaleViewModel> saleViewModels = saleModels.Select(x => new SaleViewModel
             {
                 Amount = x.Amount,
-                Email = users.Single(y => y.Id == x.CustomerId).Email,
-                FullName = users.Single(y => y.Id == x.CustomerId).FullName,
+                User = users.Single(y => y.Id == x.CustomerId),
                 SaleId = x.SaleId,
                 TimeStamp = x.ts
             }).ToList();
@@ -134,8 +132,7 @@ namespace MichellesWebsite.Controllers
                 Amount = saleModel.Amount,
                 SaleId = id,
                 TimeStamp = saleModel.ts,
-                Email = user.Email,
-                FullName = user.FullName
+                User = user
             };
             List<ProductPrice> pp = db.ProductPrices.ToList();
             List<ProductModel> pm = db.ProductModels.ToList();

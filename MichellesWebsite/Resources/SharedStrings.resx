@@ -117,17 +117,80 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="A" xml:space="preserve">
+    <value>Heilongjiang</value>
+  </data>
+  <data name="Address1" xml:space="preserve">
+    <value>First line</value>
+  </data>
+  <data name="Address2" xml:space="preserve">
+    <value>Second line</value>
+  </data>
+  <data name="B" xml:space="preserve">
+    <value>liaoning, jilin</value>
+  </data>
+  <data name="BasketPrice" xml:space="preserve">
+    <value>Basket Price</value>
+  </data>
+  <data name="C" xml:space="preserve">
+    <value>tianjin，beijing，hebei，shandong，shanxi，neimenggu，henan</value>
+  </data>
+  <data name="CartContents" xml:space="preserve">
+    <value>Your cart contents</value>
+  </data>
+  <data name="Checkout" xml:space="preserve">
+    <value>Checkout with Cart</value>
+  </data>
+  <data name="China" xml:space="preserve">
+    <value>Republic of China</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>Town/City</value>
+  </data>
   <data name="ConfirmPassword" xml:space="preserve">
     <value>Confirm password</value>
+  </data>
+  <data name="ConfirmPasswordError" xml:space="preserve">
+    <value>The password and confirmation password do not match.</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="D" xml:space="preserve">
+    <value>anhui，jiangsu，shaanxi，hubei，shanghai，ningxia，jiangxi，hunan，zhejiang，gansu，sichuan，chongqing，fujian，guangdong，guizhou，guangxi，hainan，yunnan</value>
+  </data>
+  <data name="DateFrom" xml:space="preserve">
+    <value>Date from</value>
+  </data>
+  <data name="DateTo" xml:space="preserve">
+    <value>Date to</value>
+  </data>
+  <data name="DeliveryCost" xml:space="preserve">
+    <value>Delivery Cost</value>
+  </data>
+  <data name="E" xml:space="preserve">
+    <value>xizang，xinjiang，qinghai</value>
+  </data>
+  <data name="Each" xml:space="preserve">
+    <value>each</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>Email</value>
   </data>
+  <data name="EnquiryError" xml:space="preserve">
+    <value>You must enter an error message!</value>
+  </data>
   <data name="ExploreBtn" xml:space="preserve">
     <value>Find out more -&gt;</value>
   </data>
+  <data name="FrequentlyAsked" xml:space="preserve">
+    <value>FAQ</value>
+  </data>
   <data name="FullName" xml:space="preserve">
     <value>Full name</value>
+  </data>
+  <data name="GeneralQuery" xml:space="preserve">
+    <value>General Query</value>
   </data>
   <data name="LoginBtn" xml:space="preserve">
     <value>Log in</value>
@@ -159,6 +222,9 @@
   <data name="MainSubtitle" xml:space="preserve">
     <value>Selling health products since 2011</value>
   </data>
+  <data name="Message" xml:space="preserve">
+    <value>Message</value>
+  </data>
   <data name="NavBarAbout" xml:space="preserve">
     <value>About</value>
   </data>
@@ -180,14 +246,35 @@
   <data name="NavBarWelcome" xml:space="preserve">
     <value>Hello</value>
   </data>
+  <data name="OldPassword" xml:space="preserve">
+    <value>Previous password</value>
+  </data>
+  <data name="OrderQuery" xml:space="preserve">
+    <value>Order Query</value>
+  </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>
+  </data>
+  <data name="PasswordError" xml:space="preserve">
+    <value>The {0} must be at least {2} characters long.</value>
+  </data>
+  <data name="PaymentMethod" xml:space="preserve">
+    <value>Payment method</value>
+  </data>
+  <data name="Postcode" xml:space="preserve">
+    <value>Postcode</value>
+  </data>
+  <data name="ProductQuantity" xml:space="preserve">
+    <value>Quantity</value>
+  </data>
+  <data name="ProductQuery" xml:space="preserve">
+    <value>Product Query</value>
   </data>
   <data name="ProductsDescription" xml:space="preserve">
     <value>Description</value>
   </data>
   <data name="ProductsName" xml:space="preserve">
-    <value>ProductName</value>
+    <value>Product Name</value>
   </data>
   <data name="ProductsOptions" xml:space="preserve">
     <value>Options</value>
@@ -201,6 +288,12 @@
   <data name="ProductsTitle" xml:space="preserve">
     <value>Product list</value>
   </data>
+  <data name="PurchaseDetails" xml:space="preserve">
+    <value>Your purchase details</value>
+  </data>
+  <data name="QueryType" xml:space="preserve">
+    <value>Query type</value>
+  </data>
   <data name="RegisterBtn" xml:space="preserve">
     <value>Register</value>
   </data>
@@ -209,5 +302,59 @@
   </data>
   <data name="RegisterTitle" xml:space="preserve">
     <value>Register</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>Remember me?</value>
+  </data>
+  <data name="SaleAmount" xml:space="preserve">
+    <value>Total amount</value>
+  </data>
+  <data name="SaleCancelled" xml:space="preserve">
+    <value>Cancelled</value>
+  </data>
+  <data name="SaleDetails" xml:space="preserve">
+    <value>Sale details</value>
+  </data>
+  <data name="SaleDispatched" xml:space="preserve">
+    <value>Dispatched</value>
+  </data>
+  <data name="SaleFailed" xml:space="preserve">
+    <value>Failed</value>
+  </data>
+  <data name="SaleFinished" xml:space="preserve">
+    <value>Done</value>
+  </data>
+  <data name="SaleOnHold" xml:space="preserve">
+    <value>On hold</value>
+  </data>
+  <data name="SaleOrdered" xml:space="preserve">
+    <value>Ordered</value>
+  </data>
+  <data name="SalePayment" xml:space="preserve">
+    <value>Processing payment</value>
+  </data>
+  <data name="SaleProcessing" xml:space="preserve">
+    <value>Processing</value>
+  </data>
+  <data name="State" xml:space="preserve">
+    <value>State</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Stock" xml:space="preserve">
+    <value>Stock</value>
+  </data>
+  <data name="TelephoneNumber" xml:space="preserve">
+    <value>Phone number</value>
+  </data>
+  <data name="Timestamp" xml:space="preserve">
+    <value>Created date</value>
+  </data>
+  <data name="TotalCost" xml:space="preserve">
+    <value>Total Cost</value>
+  </data>
+  <data name="UK" xml:space="preserve">
+    <value>United Kingdom</value>
   </data>
 </root>

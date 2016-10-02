@@ -17,16 +17,22 @@
             @Html.DisplayFor(x => x.saleView.SaleId)  
         </dd>
         <dt>
-            @Html.DisplayNameFor(x => x.saleView.Email)
+            @Html.DisplayNameFor(x => x.saleView.User.Email)
         </dt>
         <dd>
-            @Html.DisplayFor(x => x.saleView.Email)
+            @Html.DisplayFor(x => x.saleView.User.Email)
         </dd>
         <dt>
-            @Html.DisplayNameFor(x => x.saleView.FullName)
+            @Html.DisplayNameFor(x => x.saleView.User.FullName)
         </dt>
         <dd>
-            @Html.DisplayFor(x => x.saleView.FullName)
+            @Html.DisplayFor(x => x.saleView.User.FullName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(x => x.saleView.User.PhoneNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(x => x.saleView.User.PhoneNumber)
         </dd>
         <dt>
             @Html.DisplayNameFor(x => x.saleView.Amount)
