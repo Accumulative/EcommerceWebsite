@@ -117,11 +117,29 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="A" xml:space="preserve">
+    <value>Heilongjiang</value>
+  </data>
   <data name="Address1" xml:space="preserve">
     <value>First line</value>
   </data>
   <data name="Address2" xml:space="preserve">
     <value>Second line</value>
+  </data>
+  <data name="B" xml:space="preserve">
+    <value>liaoning, jilin</value>
+  </data>
+  <data name="BasketPrice" xml:space="preserve">
+    <value>Basket Price</value>
+  </data>
+  <data name="C" xml:space="preserve">
+    <value>tianjin，beijing，hebei，shandong，shanxi，neimenggu，henan</value>
+  </data>
+  <data name="CartContents" xml:space="preserve">
+    <value>Your cart contents</value>
+  </data>
+  <data name="Checkout" xml:space="preserve">
+    <value>Checkout with Cart</value>
   </data>
   <data name="China" xml:space="preserve">
     <value>Republic of China</value>
@@ -138,11 +156,23 @@
   <data name="Country" xml:space="preserve">
     <value>Country</value>
   </data>
+  <data name="D" xml:space="preserve">
+    <value>anhui，jiangsu，shaanxi，hubei，shanghai，ningxia，jiangxi，hunan，zhejiang，gansu，sichuan，chongqing，fujian，guangdong，guizhou，guangxi，hainan，yunnan</value>
+  </data>
   <data name="DateFrom" xml:space="preserve">
     <value>Date from</value>
   </data>
   <data name="DateTo" xml:space="preserve">
     <value>Date to</value>
+  </data>
+  <data name="DeliveryCost" xml:space="preserve">
+    <value>Delivery Cost</value>
+  </data>
+  <data name="E" xml:space="preserve">
+    <value>xizang，xinjiang，qinghai</value>
+  </data>
+  <data name="Each" xml:space="preserve">
+    <value>each</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>Email</value>
@@ -152,6 +182,9 @@
   </data>
   <data name="ExploreBtn" xml:space="preserve">
     <value>Find out more -&gt;</value>
+  </data>
+  <data name="FrequentlyAsked" xml:space="preserve">
+    <value>FAQ</value>
   </data>
   <data name="FullName" xml:space="preserve">
     <value>Full name</value>
@@ -225,6 +258,9 @@
   <data name="PasswordError" xml:space="preserve">
     <value>The {0} must be at least {2} characters long.</value>
   </data>
+  <data name="PaymentMethod" xml:space="preserve">
+    <value>Payment method</value>
+  </data>
   <data name="Postcode" xml:space="preserve">
     <value>Postcode</value>
   </data>
@@ -251,6 +287,9 @@
   </data>
   <data name="ProductsTitle" xml:space="preserve">
     <value>Product list</value>
+  </data>
+  <data name="PurchaseDetails" xml:space="preserve">
+    <value>Your purchase details</value>
   </data>
   <data name="QueryType" xml:space="preserve">
     <value>Query type</value>
@@ -297,6 +336,9 @@
   <data name="SaleProcessing" xml:space="preserve">
     <value>Processing</value>
   </data>
+  <data name="State" xml:space="preserve">
+    <value>State</value>
+  </data>
   <data name="Status" xml:space="preserve">
     <value>Status</value>
   </data>
@@ -308,6 +350,9 @@
   </data>
   <data name="Timestamp" xml:space="preserve">
     <value>Created date</value>
+  </data>
+  <data name="TotalCost" xml:space="preserve">
+    <value>Total Cost</value>
   </data>
   <data name="UK" xml:space="preserve">
     <value>United Kingdom</value>

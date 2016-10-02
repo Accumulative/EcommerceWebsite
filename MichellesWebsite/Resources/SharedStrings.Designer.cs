@@ -61,6 +61,15 @@ namespace ViewRes {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Heilongjiang.
+        /// </summary>
+        public static string A {
+            get {
+                return ResourceManager.GetString("A", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to First line.
         /// </summary>
         public static string Address1 {
@@ -75,6 +84,51 @@ namespace ViewRes {
         public static string Address2 {
             get {
                 return ResourceManager.GetString("Address2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to liaoning, jilin.
+        /// </summary>
+        public static string B {
+            get {
+                return ResourceManager.GetString("B", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Basket Price.
+        /// </summary>
+        public static string BasketPrice {
+            get {
+                return ResourceManager.GetString("BasketPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to tianjin，beijing，hebei，shandong，shanxi，neimenggu，henan.
+        /// </summary>
+        public static string C {
+            get {
+                return ResourceManager.GetString("C", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your cart contents.
+        /// </summary>
+        public static string CartContents {
+            get {
+                return ResourceManager.GetString("CartContents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checkout with Cart.
+        /// </summary>
+        public static string Checkout {
+            get {
+                return ResourceManager.GetString("Checkout", resourceCulture);
             }
         }
         
@@ -124,6 +178,15 @@ namespace ViewRes {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to anhui，jiangsu，shaanxi，hubei，shanghai，ningxia，jiangxi，hunan，zhejiang，gansu，sichuan，chongqing，fujian，guangdong，guizhou，guangxi，hainan，yunnan.
+        /// </summary>
+        public static string D {
+            get {
+                return ResourceManager.GetString("D", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Date from.
         /// </summary>
         public static string DateFrom {
@@ -138,6 +201,33 @@ namespace ViewRes {
         public static string DateTo {
             get {
                 return ResourceManager.GetString("DateTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delivery Cost.
+        /// </summary>
+        public static string DeliveryCost {
+            get {
+                return ResourceManager.GetString("DeliveryCost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to xizang，xinjiang，qinghai.
+        /// </summary>
+        public static string E {
+            get {
+                return ResourceManager.GetString("E", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to each.
+        /// </summary>
+        public static string Each {
+            get {
+                return ResourceManager.GetString("Each", resourceCulture);
             }
         }
         
@@ -165,6 +255,15 @@ namespace ViewRes {
         public static string ExploreBtn {
             get {
                 return ResourceManager.GetString("ExploreBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FAQ.
+        /// </summary>
+        public static string FrequentlyAsked {
+            get {
+                return ResourceManager.GetString("FrequentlyAsked", resourceCulture);
             }
         }
         
@@ -385,6 +484,15 @@ namespace ViewRes {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Payment method.
+        /// </summary>
+        public static string PaymentMethod {
+            get {
+                return ResourceManager.GetString("PaymentMethod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Postcode.
         /// </summary>
         public static string Postcode {
@@ -462,6 +570,15 @@ namespace ViewRes {
         public static string ProductsTitle {
             get {
                 return ResourceManager.GetString("ProductsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your purchase details.
+        /// </summary>
+        public static string PurchaseDetails {
+            get {
+                return ResourceManager.GetString("PurchaseDetails", resourceCulture);
             }
         }
         
@@ -601,6 +718,15 @@ namespace ViewRes {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to State.
+        /// </summary>
+        public static string State {
+            get {
+                return ResourceManager.GetString("State", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Status.
         /// </summary>
         public static string Status {
@@ -633,6 +759,15 @@ namespace ViewRes {
         public static string Timestamp {
             get {
                 return ResourceManager.GetString("Timestamp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total Cost.
+        /// </summary>
+        public static string TotalCost {
+            get {
+                return ResourceManager.GetString("TotalCost", resourceCulture);
             }
         }
         

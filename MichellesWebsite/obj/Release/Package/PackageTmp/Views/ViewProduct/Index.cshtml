@@ -39,11 +39,11 @@
             </td>
 
             <td>
-                £@Html.DisplayFor(modelItem => item.price)
+                @ViewBag.Currency @Html.DisplayFor(modelItem => item.price)
             </td>
             
             <td>
-                @Html.ActionLink("Details", "Details", "ViewProduct", new { productId = item.ID }, null)
+                @Html.ActionLink(@ViewRes.SharedStrings.SaleDetails, "Details", "ViewProduct", new { productId = item.ID }, null)
             </td>
             
         </tr>

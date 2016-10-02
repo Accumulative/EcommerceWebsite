@@ -27,6 +27,7 @@ namespace MichellesWebsite.Models
         [Display(Name = "Stock", ResourceType = typeof(ViewRes.SharedStrings))]
         [MinValue(0)]
         public int stock { get; set; }
+        public int weight { get; set; }
     }
     public class ProductViewModel
     {

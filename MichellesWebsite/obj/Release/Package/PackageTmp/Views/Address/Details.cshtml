@@ -11,6 +11,20 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
+            @Html.DisplayNameFor(model => model.contactName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.contactName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.phoneNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.phoneNumber)
+        </dd>
+        <dt>
             @Html.DisplayNameFor(model => model.firstLine)
         </dt>
 
@@ -49,6 +63,17 @@
         <dd>
             @Html.DisplayFor(model => model.country)
         </dd>
+
+        @if (Model.country != MichellesWebsite.Models.Country.UK)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.State.name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.State.name)
+            </dd>
+        }
 
     </dl>
 </div>

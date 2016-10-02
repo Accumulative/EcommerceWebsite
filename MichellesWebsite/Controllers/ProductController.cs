@@ -119,7 +119,7 @@ namespace MichellesWebsite.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "name,description")] ProductModel productModel)
+        public ActionResult Edit(ProductModel productModel)
         {
             if (ModelState.IsValid)
             {

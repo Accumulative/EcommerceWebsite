@@ -14,8 +14,12 @@ namespace MichellesWebsite.Models
         [StringLength(128)]
         public string CustomerId { get; set; }
         public decimal Amount { get; set; }
+        public int DeliveryCostId { get; set; }
         public int AddressId { get; set; }
         public Status status { get; set; }
+        [ForeignKey("CouponModel")]
+        public int? couponId { get; set; }
+        public CouponModel CouponModel { get; set; }
         public List<SaleProductModel> Products { get; set; }
         public DateTime ts { get; set; }
 
@@ -70,5 +74,28 @@ namespace MichellesWebsite.Models
         public SaleViewModel saleView { get; set; }
         public Address address { get; set; }
         public List<ApplicationCartItem> products { get; set; }
+    }
+    public class CouponModel
+    {
+        public int id { get; set; }
+        public string code { get; set; }
+        public DateTime? startDate { get; set; }
+        public DateTime? endDate { get; set; }
+        public decimal discount { get; set; }
+        [Display(Name = "Timestamp", ResourceType = typeof(ViewRes.SharedStrings))]
+        public DateTime ts { get; set; }
+        public bool freeDelivery { get; set; } 
+    }
+    
+    public class DeliveryModel
+    {
+        [Key]
+        public int id { get; set; }
+        [ForeignKey("State")]
+        public int? stateId { get; set; }
+        public virtual State State { get; set; }
+        public decimal costWithin500 { get; set; }
+        public decimal costWithin1000 { get; set; }
+        public decimal costPer1000 { get; set; }
     }
 }

@@ -26,6 +26,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
+    <ApplicationInsightsResourceId>/subscriptions/cb9828ce-e235-4ef8-9f28-5a9b0c2ea4c8/resourcegroups/Default-ApplicationInsights-CentralUS/providers/microsoft.insights/components/MichellesWebsite</ApplicationInsightsResourceId>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -43,8 +44,41 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PublishDatabases>false</PublishDatabases>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.1\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.1.0\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.1.0\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.1.0\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.1.0\lib\net45\Microsoft.AI.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.1.0\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.1.0\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights.Web.TelemetryChannel, Version=1.0.0.4227, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.TelemetryChannel.1.0.0\lib\net45\Microsoft.ApplicationInsights.Web.TelemetryChannel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Azure.KeyVault.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Azure.KeyVault.Core.1.0.0\lib\net40\Microsoft.Azure.KeyVault.Core.dll</HintPath>
       <Private>True</Private>
@@ -70,8 +104,8 @@
       <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.3.2.1\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.WindowsAzure.Storage, Version=7.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\WindowsAzure.Storage.7.0.0\lib\net40\Microsoft.WindowsAzure.Storage.dll</HintPath>
+    <Reference Include="Microsoft.WindowsAzure.Storage, Version=7.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAzure.Storage.7.2.0\lib\net40\Microsoft.WindowsAzure.Storage.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -214,6 +248,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Alipay\app_code\AlipayConfig.cs" />
+    <Compile Include="Alipay\app_code\AlipayCore.cs" />
+    <Compile Include="Alipay\app_code\AlipayNotify.cs" />
+    <Compile Include="Alipay\app_code\AlipaySubmit.cs" />
+    <Compile Include="Alipay\app_code\MD5.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -222,21 +261,26 @@
     <Compile Include="BlobHandler.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AddressController.cs" />
+    <Compile Include="Controllers\ApplicationUsersController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ContactsController.cs" />
+    <Compile Include="Controllers\CouponModelsController.cs" />
     <Compile Include="Controllers\CultureCountriesController.cs" />
+    <Compile Include="Controllers\DeliveryModelsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\PayPalTransactionsController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\SaleModelsController.cs" />
+    <Compile Include="Controllers\StatesController.cs" />
     <Compile Include="Controllers\UserAddressController.cs" />
     <Compile Include="Controllers\ViewProductController.cs" />
     <Compile Include="CultureHelper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Microsoft\AspNet\Identity\UserManager.cs" />
     <Compile Include="Migrations\201607092243425_Initial.cs" />
     <Compile Include="Migrations\201607092243425_Initial.Designer.cs">
       <DependentUpon>201607092243425_Initial.cs</DependentUpon>
@@ -244,6 +288,14 @@
     <Compile Include="Migrations\201607311028092_ChineseVersion.cs" />
     <Compile Include="Migrations\201607311028092_ChineseVersion.Designer.cs">
       <DependentUpon>201607311028092_ChineseVersion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609081717540_UpdateDelivery-1.cs" />
+    <Compile Include="Migrations\201609081717540_UpdateDelivery-1.Designer.cs">
+      <DependentUpon>201609081717540_UpdateDelivery-1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609101523108_States.cs" />
+    <Compile Include="Migrations\201609101523108_States.Designer.cs">
+      <DependentUpon>201609101523108_States.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -281,6 +333,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\alipayQR.jpg" />
+    <Content Include="Images\DeliveryBtn.png" />
+    <Content Include="Images\wechatQR.jpg" />
     <Content Include="Images\chineseflag.jpg" />
     <Content Include="Images\facebook-logo.png" />
     <Content Include="Images\instagramLogo.jpg" />
@@ -288,7 +343,6 @@
     <Content Include="Images\MalibracePic.jpg" />
     <Content Include="Images\Ukflag.png" />
     <Content Include="Images\wechatLogo.png" />
-    <Content Include="Images\wechatQR.JPG" />
     <Content Include="Images\weiboLogo.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -298,6 +352,9 @@
     <Content Include="Views\Purchase\PostPaymentFailure.cshtml" />
     <Content Include="Views\Purchase\PostPaymentSuccess.cshtml" />
     <Content Include="Content\Ballantines-Serial-Regular-DB_5718.ttf" />
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Properties\PublishProfiles\Malibrace.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -398,6 +455,32 @@
     <Content Include="Views\CultureCountries\Details.cshtml" />
     <Content Include="Views\CultureCountries\Edit.cshtml" />
     <Content Include="Views\CultureCountries\Index.cshtml" />
+    <Content Include="Views\DeliveryModels\Create.cshtml" />
+    <Content Include="Views\DeliveryModels\Delete.cshtml" />
+    <Content Include="Views\DeliveryModels\Details.cshtml" />
+    <Content Include="Views\DeliveryModels\Edit.cshtml" />
+    <Content Include="Views\DeliveryModels\Index.cshtml" />
+    <Content Include="Views\Create.cshtml" />
+    <Content Include="Views\CouponModels\Index.cshtml" />
+    <Content Include="Views\CouponModels\Create.cshtml" />
+    <Content Include="Views\CouponModels\Edit.cshtml" />
+    <Content Include="Views\CouponModels\Delete.cshtml" />
+    <Content Include="Views\CouponModels\Details.cshtml" />
+    <Content Include="Views\States\Create.cshtml" />
+    <Content Include="Views\States\Delete.cshtml" />
+    <Content Include="Views\States\Details.cshtml" />
+    <Content Include="Views\States\Edit.cshtml" />
+    <Content Include="Views\States\Index.cshtml" />
+    <Content Include="Views\Home\FrequentlyAsked.cshtml" />
+    <Content Include="Views\ApplicationUsers\Create.cshtml" />
+    <Content Include="Views\ApplicationUsers\Delete.cshtml" />
+    <Content Include="Views\ApplicationUsers\Details.cshtml" />
+    <Content Include="Views\ApplicationUsers\Edit.cshtml" />
+    <Content Include="Views\ApplicationUsers\Index.cshtml" />
+    <Content Include="Views\ApplicationUsers\ResetPassword.cshtml" />
+    <Content Include="Service References\Application Insights\ConnectedService.json" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\ViewProduct\AddToBasket.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -418,6 +501,12 @@
     <EmbeddedResource Include="Migrations\201607311028092_ChineseVersion.resx">
       <DependentUpon>201607311028092_ChineseVersion.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609081717540_UpdateDelivery-1.resx">
+      <DependentUpon>201609081717540_UpdateDelivery-1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609101523108_States.resx">
+      <DependentUpon>201609101523108_States.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\SharedStrings.zh-CN.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>SharedStrings.zh-CN.Designer.cs</LastGenOutput>
@@ -429,9 +518,15 @@
       <CustomToolNamespace>ViewRes</CustomToolNamespace>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Live|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />

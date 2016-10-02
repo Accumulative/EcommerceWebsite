@@ -54,5 +54,11 @@ namespace MichellesWebsite.Models
         public System.Data.Entity.DbSet<MichellesWebsite.Models.StockTransaction> StockTransactions { get; set; }
 
         public System.Data.Entity.DbSet<MichellesWebsite.Models.CultureCountry> CultureCountries { get; set; }
+
+        public System.Data.Entity.DbSet<MichellesWebsite.Models.DeliveryModel> DeliveryModels { get; set; }
+
+        public System.Data.Entity.DbSet<MichellesWebsite.Models.CouponModel> CouponModels { get; set; }
+
+        public System.Data.Entity.DbSet<MichellesWebsite.Models.State> States { get; set; }
     }
 }

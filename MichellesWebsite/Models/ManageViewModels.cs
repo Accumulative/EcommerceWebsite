@@ -27,6 +27,7 @@ namespace MichellesWebsite.Models
 
     public class SetPasswordViewModel
     {
+        public string email { get; set; }
         [Required]
         [StringLength(100, ErrorMessageResourceType = typeof(ViewRes.SharedStrings), MinimumLength = 6,
                       ErrorMessageResourceName = "PasswordError")]
@@ -36,7 +37,7 @@ namespace MichellesWebsite.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "ConfirmPassword", ResourceType = typeof(ViewRes.SharedStrings))]
-        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessageResourceType = typeof(ViewRes.SharedStrings),
+        [System.ComponentModel.DataAnnotations.Compare("NewPassword", ErrorMessageResourceType = typeof(ViewRes.SharedStrings),
                       ErrorMessageResourceName = "ConfirmPasswordError")]
         public string ConfirmPassword { get; set; }
     }
@@ -57,7 +58,7 @@ namespace MichellesWebsite.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "ConfirmPassword", ResourceType = typeof(ViewRes.SharedStrings))]
-        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessageResourceType = typeof(ViewRes.SharedStrings),
+        [System.ComponentModel.DataAnnotations.Compare("NewPassword", ErrorMessageResourceType = typeof(ViewRes.SharedStrings),
                       ErrorMessageResourceName = "ConfirmPasswordError")]
         public string ConfirmPassword { get; set; }
     }

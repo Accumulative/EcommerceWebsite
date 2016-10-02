@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Web.Mvc;
 
 namespace MichellesWebsite.Models
@@ -14,6 +17,13 @@ namespace MichellesWebsite.Models
         [Key]
         public int id { get; set; }
         public string userId { get; set; }
+        
+        [Display(Name = "FullName", ResourceType = typeof(ViewRes.SharedStrings))]
+        [Required]
+        public string contactName { get; set; }
+        [Display(Name = "TelephoneNumber", ResourceType = typeof(ViewRes.SharedStrings))]
+        [Required]
+        public string phoneNumber { get; set; }
         [Required]
         [Display(Name = "Address1", ResourceType = typeof(ViewRes.SharedStrings))]
         public string firstLine { get; set; }
@@ -25,18 +35,34 @@ namespace MichellesWebsite.Models
         [Display(Name = "City", ResourceType = typeof(ViewRes.SharedStrings))]
         [Required]
         public string city { get; set; }
+
         [Required]
+        [Range(1, int.MaxValue, ErrorMessage = "Select a country")]
         [Display(Name = "Country", ResourceType = typeof(ViewRes.SharedStrings))]
         public Country country { get; set; }
-        
+
+        [Display(Name = "State", ResourceType = typeof(ViewRes.SharedStrings))]
+        [ForeignKey("State")]
+        public int? stateId { get; set; }
+        public virtual State State { get; set; }
+
     }
-        public enum Country
-        {
-            [Display(Name = "UK", ResourceType = typeof(ViewRes.SharedStrings))]
-            UK = 1,
-            [Display(Name = "China", ResourceType = typeof(ViewRes.SharedStrings))]
-            ZH = 2
-        }
+    public enum Country
+    {
+        [Display(Name = "UK", ResourceType = typeof(ViewRes.SharedStrings))]
+        UK = 1,
+        [Display(Name = "China", ResourceType = typeof(ViewRes.SharedStrings))]
+        ZH = 2
+    }
+    public class State
+    {
+        [Key]
+        public int id { get; set; }
+        public string name { get; set; }
+        public string zhName { get; set; }
+        public Country Country { get; set; }
+        public DateTime ts { get; set; }
+    }
     public class CreateUserViewModel
     {
         [Required]
@@ -155,7 +181,6 @@ namespace MichellesWebsite.Models
         [Display(Name = "TelephoneNumber", ResourceType = typeof(ViewRes.SharedStrings))]
         public string Number { get; set; }
 
-        [Required]
         public Address address { get; set; }
     }
 

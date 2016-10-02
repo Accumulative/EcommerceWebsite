@@ -1,39 +1,152 @@
 ﻿@model MichellesWebsite.Models.ApplicationCart
 
 @{
-    ViewBag.Title = "Checkout with Cart";
+    ViewBag.Title = ViewRes.SharedStrings.Checkout;
 }
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#Addresses').change(function(){
+            if($('#Addresses').val() != "" && @Model.Items.Count != 0)
+                {
+                SetDelCost($('#Addresses').val());
+            }
+            else if(@Model.Items.Count == 0)
+            {
+                $('#PaymentMessage').show("fast");
+                document.getElementById('PaymentMessage').textContent = "Please add some items to the basket."
+            }
+        });
+        $('#couponBtn').click(function(){
+            var url = '@Url.Action("CheckCoupon", "CouponModels", null)'
+            $.ajax({
+                url: url,
+                method: "POST", // post is safer, but could also be GET
+                data: {
+                    code: document.getElementById('couponCode').value
+                }, // any data (as a JSON object) you want to pass to the method
+                success: function (result)
+                {
+                    $('#couponCosts').show("fast")
+                    document.getElementById("couponStatus").textContent = result.message;
+                    if(result.message == "Successful")
+                    {
+                        var devCost = parseFloat(@Model.TotalPrice) * (1.00-parseFloat(result.discount));
+                        document.getElementById("BasketCostCoupon").textContent = '@ViewRes.SharedStrings.BasketPrice' + ": " + '@Model.Currency' + " " + devCost;
+                        if(result.freeDel == true)
+                        {
+                            document.getElementById("DeliveryCostCoupon").textContent = '@ViewRes.SharedStrings.DeliveryCost' + ": " + '@Model.Currency' + " 0"
+                            document.getElementById("TotalCostCoupon").textContent = '@ViewRes.SharedStrings.TotalCost' + ": " + '@Model.Currency' + " " + (@Model.TotalPrice);
+                        }
+                        else
+                        {
+                            $.ajax({
+                                url: '@Url.Action("CalculateDeliveryCost", "DeliveryModels", null)',
+                                method: "POST", // post is safer, but could also be GET
+                                data: {
+                                    addressId: $('#Addresses').val(),
+                                    quantity: '@Model.Weight'
+                                }, // any data (as a JSON object) you want to pass to the method
+                                success: function (result2) {
+                                    document.getElementById("DeliveryCostCoupon").textContent = '@ViewRes.SharedStrings.DeliveryCost' + ": " + '@Model.Currency' + " " + result2.cost;
+                                    document.getElementById("TotalCostCoupon").textContent = '@ViewRes.SharedStrings.TotalCost' + ": " + '@Model.Currency' + " " + (parseFloat(result2.cost) + parseFloat(@Model.TotalPrice)*(1.00-parseFloat(result.discount)));
+                                }});
+                        };
+                    }
+                    else
+                    {
+                        $('#couponCosts').hide("fast")
+                    };
+                }
+            });
+        });
+    });
+    function SetDelCost(state)
+    {
+        var url = '@Url.Action("CalculateDeliveryCost", "DeliveryModels", null)'
+        $.ajax({
+            url: url,
+            method: "POST", // post is safer, but could also be GET
+            data: {
+                addressId: state,
+                quantity: '@Model.Weight'
+            }, // any data (as a JSON object) you want to pass to the method
+            success: function (result) {
+                document.getElementById("DeliveryCost").textContent = '@ViewRes.SharedStrings.DeliveryCost' + ": " + '@Model.Currency' + " " + result.cost;
+                $('#FinalPrices').show("fast");
+                if("@CultureHelper.GetCurrentCulture()" != "en")
+                {
+                    $('#paypalBtn').hide("fast");
+                    $('#ChinesePayment').show("fast");
+                    document.getElementById('PaymentMessage').textContent = "Sorry, Chinese payments aren't supported only yet, but you can get in contact with the seller by scanning the WeiChat on the left."
+                    $('#PaymentMessage').show("fast");
+                }
+                document.getElementById("TotalCost").textContent = '@ViewRes.SharedStrings.TotalCost' + ": " + '@Model.Currency' + " " + (result.cost + @Model.TotalPrice);
+            }
 
+        });
+    }
+</script>
 <h2>@ViewBag.Title</h2>
 <h4>
-    Your purchase details
+    @ViewRes.SharedStrings.PurchaseDetails
 </h4>
-<ul>
     @if (Model.PurchaseDescription != null)
     {
-        <p>Purchase Description: @Model.PurchaseDescription</p>
+        <p>@ViewRes.SharedStrings.SaleDetails: @Model.PurchaseDescription</p>
+        
     }
-    <p>Total Price: @Model.TotalPrice @Model.Currency</p>
-</ul>
-
 @if (Model.Items != null)
 {
     <p>
-        Your cart contents:
+        @ViewRes.SharedStrings.CartContents:
     </p>
     <ul>
         @foreach (MichellesWebsite.Models.ApplicationCartItem item in Model.Items)
         {
-            <li>@(item.Quantity + " x " + item.Name + " @ " + item.Price + " each")</li>
+            <li>@(item.Quantity + " x " + item.Name + " @ " + item.Price + " "+ @ViewRes.SharedStrings.Each)</li>
         }
     </ul>
 
 }
 @using (Html.BeginForm("PayPalExpressCheckout", "Purchase", FormMethod.Post))
 {
-    @Html.DropDownList("Addresses");
+    <p>
+        @ViewRes.SharedStrings.Address1 : @Html.DropDownList("Addresses","---Please select Address---")
+    </p>
+    <p>@ViewRes.SharedStrings.BasketPrice : @Model.Currency @Model.TotalPrice</p>
+    <div id="FinalPrices">
+        <p id="DeliveryCost" name="DeliveryCost"></p>
+        <p id="TotalCost" name="TotalCost"></p>
+        <p><input type="text" id="couponCode" name="couponCode"/></p>
+        <p><button type="button" id="couponBtn" name="couponBtn" >Submit code</button></p>
+        <p><label id="couponStatus" name="couponStatus" /></p>
 
-    <button type="submit">
-        <img src="https://www.paypalobjects.com/en_US/i/btn/btn_xpressCheckout.gif" alt="PayPal" />
-    </button>
+        <div id="couponCosts" name="couponCosts">
+            <br />
+            <label>New costs with coupon applied</label>
+            <p id="BasketCostCoupon" name="BasketCostCoupon"></p>
+            <p id="DeliveryCostCoupon" name="DeliveryCostCoupon"></p>
+            <p id="TotalCostCoupon" name="TotalCostCoupon"></p>
+        </div>
+
+        <br />
+        <h2>@ViewRes.SharedStrings.PaymentMethod</h2>
+        
+        <button type="submit" name="paypalBtn" id="paypalBtn">
+            <img src="https://www.paypalobjects.com/en_US/i/btn/btn_xpressCheckout.gif" alt="PayPal" />
+        </button>
+    </div>
 }
+<p id="PaymentMessage" name="PaymentMessage">Hello</p>
+<div id="ChinesePayment" name="ChinesePayment">
+    
+    <img hidden="hidden" src="~/Images/alipayQR.jpg" width="200" height="400" />
+</div>
+
+<style type="text/css" >
+    #FinalPrices{display:none}
+    #couponCosts{display:none}
+    #ChinesePayment{display:none}
+    #PaymentMessage{display:none}
+</style>
+

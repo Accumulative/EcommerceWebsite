@@ -17,5 +17,6 @@ namespace MichellesWebsite.Models
         public decimal Price { get; set; }
         [Display(Name = "ProductsName", ResourceType = typeof(ViewRes.SharedStrings))]
         public string Name { get; set; }
+        public int Weight { get; set; }
     }
 }

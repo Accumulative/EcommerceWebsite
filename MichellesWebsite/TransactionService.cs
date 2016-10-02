@@ -9,7 +9,7 @@ namespace MichellesWebsite
    
     public interface ITransactionService
     {
-        SetExpressCheckoutResponse SendPayPalSetExpressCheckoutRequest(ApplicationCart cart, string serverURL, string userEmail = null);
+        SetExpressCheckoutResponse SendPayPalSetExpressCheckoutRequest(ApplicationCart cart, string serverURL, Address address, string userEmail = null);
         GetExpressCheckoutDetailsResponse SendPayPalGetExpressCheckoutDetailsRequest(string token, ApplicationCart cart);
         DoExpressCheckoutPaymentResponse SendPayPalDoExpressCheckoutPaymentRequest(ApplicationCart cart, string token, string payerId);
     } 
@@ -26,7 +26,7 @@ namespace MichellesWebsite
         private ApplicationDbContext db = new ApplicationDbContext();
         private PayPalMvc.ITransactionRegistrar _payPalTransactionRegistrar = new PayPalMvc.TransactionRegistrar();
 
-        public SetExpressCheckoutResponse SendPayPalSetExpressCheckoutRequest(ApplicationCart cart, string serverURL, string userEmail = null)
+        public SetExpressCheckoutResponse SendPayPalSetExpressCheckoutRequest(ApplicationCart cart, string serverURL, Address address, string userEmail = null)
         {
             try
             {
@@ -42,8 +42,7 @@ namespace MichellesWebsite
                     foreach (ApplicationCartItem item in cart.Items)
                         expressCheckoutItems.Add(new ExpressCheckoutItem((int)item.Quantity, item.Price, item.Name, item.Name));
                 }
-
-                SetExpressCheckoutResponse response = _payPalTransactionRegistrar.SendSetExpressCheckout(cart.Currency, cart.TotalPrice, cart.PurchaseDescription, cart.Id.ToString(), serverURL, expressCheckoutItems, userEmail);
+                SetExpressCheckoutResponse response = _payPalTransactionRegistrar.SendSetExpressCheckout(cart.Currency, cart.TotalPrice, cart.deliveryPrice, cart.PurchaseDescription, cart.Id.ToString(), serverURL, address.contactName, address.firstLine, address.city, address.postcode, "GB", expressCheckoutItems, userEmail, address.secondLine);
                 // Add a PayPal transaction record
                 PayPalTransaction transaction = new PayPalTransaction
                 {

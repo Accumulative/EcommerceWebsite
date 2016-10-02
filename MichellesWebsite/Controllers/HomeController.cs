@@ -12,7 +12,10 @@ namespace MichellesWebsite.Controllers
         {
             return View();
         }
-
+        public ActionResult FrequentlyAsked()
+        {
+            return View();
+        }
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

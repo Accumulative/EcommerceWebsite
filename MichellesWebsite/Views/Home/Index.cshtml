@@ -2,7 +2,13 @@
     ViewBag.Title = "Home Page";
 }
 
-
+@using (Html.BeginForm("Index", "ViewProduct", FormMethod.Post))
+{
+    <div id="MainSearch" align="right">
+        <input type="text" name="SearchTerm" placeholder="Search products"/>
+        <input type="submit" value="Search" class="btn btn-default" />
+    </div>
+}
 
 <div class="jumbotron">
 	<div id="mainSec">
